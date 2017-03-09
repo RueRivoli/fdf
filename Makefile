@@ -19,8 +19,8 @@ SRCS= srcs/main.c \
 
 OBJS= $(SRCS:.c=.o)
 INCLUDES= -I libft -I includes -I mlx/
-LIBS= -L libft/ -lft -L mlx/ -lmlx -lm
-FLAGS= -Wall -Wextra -Werror -g
+LIBS= -L libft/ -lft -L mlx/ -lmlx -lm 
+FLAGS= -Wall -Wextra -Werror -g 
 FRAMEWORK= -framework AppKit -framework OpenGL
 
 $(NAME):	$(OBJS)

@@ -19,7 +19,7 @@ static int		get_color(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != 'x')
+		if (str[i] == 'x')
 			return (ft_hextoint(&str[i + 1]));
 		i++;
 	}
@@ -39,7 +39,7 @@ static t_node		**convert_map(char **split, t_node **map)
 	len = ft_splitlen(split);
 	ft_putstr("P : ");
 	ft_putnbr(j);
-	ft_putchar('\n');
+	//ft_putchar('\n');
 	map[j] = (t_node*)malloc(sizeof(t_node) * (len + 1));
 	if (!(map[j]))
 	{
@@ -49,14 +49,15 @@ static t_node		**convert_map(char **split, t_node **map)
 	while (i < len)
 	{
 		err44 = ft_atoi(split[i]);
+		//ft_putnbr(get_color(split[i]));
 		new = init_node(i, j, ft_atoi(split[i]), get_color(split[i]));
 		ft_memcpy(map[j], new, sizeof(new));
 		map[j][i] = *new;
-		//display_node(&map[j][i]);
-		map[j]++;
+		display_node(&map[j][i]);
+		//ft_putchar('\n')
 		i++;
 	}
-	ft_putchar('\n');
+
 	j++;
 	return (map);
 }
@@ -80,23 +81,26 @@ t_node		**get_map(int fd)
 		return (NULL);
 	if (get_next_line(fd, &line) > 0)
 	{
-		split = ft_strsplit(line,' ');
+		split = ft_strsplit(line,' ');	
 		leng = ft_splitlen(split);
 		map = convert_map(split, map);
 	}
 	else
 		ft_putstr("Erreur dans l'ouverture du fichier");
+	
 	while (get_next_line(fd, &line) > 0)
 	{
-		
-		map = (t_node**)ft_realloc((void*)map,sizeof(t_node*) *(count + 1), sizeof(t_node*) * count);
+		map = (t_node**)ft_realloc((void*)map,sizeof(t_node*) * (count + 1), sizeof(t_node*) * count);
 		split = ft_strsplit(line, ' ');
+		ft_putstr("Pass");
 		if (ft_splitlen(split) != leng)
-			ft_putstr("error");
+			//ft_putstr("error");
 		map = convert_map(split, map);
-		//display_map(map, leng);
-		ft_putstr("\n\n");
+		count++;
 	}
-	//display_map(map, leng);
+	ft_putstr(" ess ; ");
+	ft_putnbr(map[2][1].z);
+	ft_putnbr(leng);
+	display_map(map, leng);
 	return (map);
 }

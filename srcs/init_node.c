@@ -61,14 +61,12 @@ void		display_map(t_node **map, int len)
 		ft_putstr("Erreur dans la map");
 	while (map[i])
 	{
+		ft_putstr(" i = ");
+		ft_putnbr(i);
+		ft_putchar(' ');
 		j = 0;
 		while (j < len)
-		{	
-			ft_putstr("ligne : ");
-			ft_putnbr(i);
-			ft_putstr(" colonne : ");
-			ft_putnbr(j);
-			ft_putstr(" altitude : ");	
+		{		
 			ft_putnbr(map[i][j].z);
 			ft_putchar(' ');
 			j++;
