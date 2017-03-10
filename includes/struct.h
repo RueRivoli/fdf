@@ -25,6 +25,7 @@ typedef struct s_env
 	void	*win;
 	t_img	*img;
 	t_node	**map;
+	int		len;
 }			t_env;
 
 

@@ -28,6 +28,8 @@ int		main(int argc, char **argv)
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
 		ft_putstr("erreur dans le fichier");
 	env = init_env(fd);
+	mlx_put_image_to_window(env->mlx, env->win, (env->img)->img, 0, 0);
+	mlx_loop(env->mlx);
 
 	return (0);
 }

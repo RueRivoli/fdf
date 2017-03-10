@@ -15,7 +15,8 @@ NAME= fdf
 SRCS= srcs/main.c \
 	srcs/init_env.c \
 	srcs/get_map.c \
-	srcs/init_node.c
+	srcs/init_node.c \
+	srcs/rotation.c
 
 OBJS= $(SRCS:.c=.o)
 INCLUDES= -I libft -I includes -I mlx/

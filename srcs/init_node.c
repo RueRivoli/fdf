@@ -18,7 +18,7 @@ t_node		*new_node()
 {
 	t_node *node;
 
-	if (!(node = (t_node*)malloc(sizeof(t_node))))
+	if (!(node = (t_node*)ft_memalloc(sizeof(t_node))))
 		return (NULL);
 	node->x = 0;
 	node->y = 0;
@@ -61,13 +61,15 @@ void		display_map(t_node **map, int len)
 		ft_putstr("Erreur dans la map");
 	while (map[i])
 	{
-		ft_putstr(" i = ");
-		ft_putnbr(i);
-		ft_putchar(' ');
 		j = 0;
 		while (j < len)
 		{		
 			ft_putnbr(map[i][j].z);
+			if (map[i][j].color != -1)
+			{
+				ft_putchar(',');
+				ft_putnbr(map[i][j].color);
+			}
 			ft_putchar(' ');
 			j++;
 		}

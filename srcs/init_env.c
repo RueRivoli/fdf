@@ -34,6 +34,7 @@ t_env		*new_env()
 	env->mlx = NULL;
 	env->win = NULL;
 	env->img = init_img(env);
+	env->len = 0;
 	return (env);
 }
 
@@ -43,9 +44,17 @@ t_env	*init_env(int fd)
 
 	if (!(env = new_env()))
 		return (NULL);
-	//env->mlx = mlx_init();
-	//env->win = mlx_new_window(env, SIZE_X, SIZE_Y, "notre fenetre");
-	//env->img = init_img(env);
-	env->map = get_map(fd);
+	env->mlx = mlx_init();
+	env->win = mlx_new_window(env, SIZE_X, SIZE_Y, "notre fenetre");
+	env->img = init_img(env);
+	ft_putstr("Data :");
+	ft_putstr((env->img)->data);
+	ft_putstr(" Bpp :");
+	ft_putnbr((env->img)->bpp);
+	ft_putstr(" Sizeline :");
+	ft_putnbr((env->img)->sizeline);
+	ft_putstr(" Endian :");
+	ft_putnbr((env->endian)->endian);
+	env->map = get_map(fd, env->len);
 	return (env);
 }
