@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+	/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
@@ -52,7 +52,10 @@ static t_node		**convert_map(char **split, t_node **map)
 	while (i < len)
 	{
 		if (ft_strchr(split[i], ',') == NULL)
-			new = init_node(i, j, ft_atoi(split[i]), get_color(split[i]));
+		{
+			new = init_node(i, j, ft_atoi(split[i]), 16777215);
+			//get_color(split[i])
+		}
 		else
 		{
 			sp = ft_strsplit(split[i], ',');

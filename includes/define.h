@@ -22,5 +22,7 @@
 # define SIZE_X 1024
 # define SIZE_Y 850
 # define theta 45
+# define FENE_X 682
+# define FENE_Y 566
 
 #endif

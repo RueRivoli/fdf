@@ -16,7 +16,9 @@ SRCS= srcs/main.c \
 	srcs/init_env.c \
 	srcs/get_map.c \
 	srcs/init_node.c \
-	srcs/rotation.c
+	srcs/rotation.c \
+	srcs/init_img.c \
+	srcs/draw.c
 
 OBJS= $(SRCS:.c=.o)
 INCLUDES= -I libft -I includes -I mlx/

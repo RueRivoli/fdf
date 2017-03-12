@@ -21,4 +21,6 @@ t_node	**get_map(int fd, int len);
 t_node	*insert_node(t_node *node, t_node *new);
 void	display_map(t_node **map, int len);
 void	display_node(t_node *node);
+void    mlx_put_pixel_to_image(t_env *env, t_node *node);
+void    draw_map(t_env *env);
 #endif
