@@ -3,65 +3,122 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vquesnel <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: fgallois <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/04/26 13:35:37 by vquesnel          #+#    #+#              #
-#*   Updated: 2016/05/01 15:49:05 by vquesnel         ###   ########.fr       *#
+#    Created: 2017/03/13 14:16:34 by fgallois          #+#    #+#              #
+#    Updated: 2017/03/13 14:16:41 by fgallois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME= fdf
+NAME = fdf
+CC = gcc
+OPTI = -O3
+CFLAGS_DEBUG = -g3 -O0 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -pedantic $(OPTI)
 
-SRCS= srcs/main.c \
-	srcs/init_env.c \
-	srcs/get_map.c \
-	srcs/init_node.c \
-	srcs/rotation.c \
-	srcs/init_img.c \
-	srcs/draw.c
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Darwin)
+    MLX_INC_PATH = mlx
+else
+    MLX_INC_PATH = minilibx
+endif
 
-OBJS= $(SRCS:.c=.o)
-INCLUDES= -I libft -I includes -I mlx/
-LIBS= -L libft/ -lft -L mlx/ -lmlx -lm 
-FLAGS= -Wall -Wextra -Werror -g 
-FRAMEWORK= -framework AppKit -framework OpenGL
+#Headers
+LIBFT_INC_PATH = libft
+LIBFT_INC_FILES = libft.h
+MLX_INC_FILES = mlx.h
+INC_PATH = includes
+INC_FILES = fdf.h define.h struct.h
+HEADERS =  $(LIBFT_INC_FILES:%.h=$(LIBFT_INC_PATH)/%.h)
+HEADERS += $(MLX_INC_FILES:%.h=$(MLX_INC_PATH)/%.h)
+HEADERS += $(INC_FILES:%.h=$(INC_PATH)/%.h)
+CFLAGS += $(addprefix -I,$(INC_PATH) $(LIBFT_INC_PATH) $(MLX_INC_PATH))
 
-$(NAME):	$(OBJS)
-	@make -C libft/
-	@make -C mlx/
-	@gcc -o $(NAME) $(OBJS) $(LIBS) $(FRAMEWORK)
-	@echo "		\033[31;1m"
-	@echo "		  ,__________,  ,_________,       "
-	@echo "		  |          |  |         |      "
-	@echo "		  |____      |  |____     |      "
-	@echo "		       /    /       /    /        "
-	@echo "		      /    /       /    /          "
-	@echo "		     /    /       /    /          "
-	@echo "		    /    /       /    /           "
-	@echo "		   /    /       /    /            "
-	@echo "		   ____         ____              "
-	@echo "\033[0m"
-	@echo "		  ALL_IS_WORKING_MAN                "
-	@echo "\n"
+#Sources
+SRC_PATH = srcs/
+vpath %.c $(SRC_PATH)
 
+SOURCES = main.c init_node.c init_img.c get_map.c init_env.c rotation.c draw.c
 
-$(OBJS): %.o: %.c
-	@gcc $(FLAGS) $(INCLUDES) -c $< -o $@
+# Libft
+ LIBFT_PATH = libft
+ LIBFT = $(LIBFT_PATH)/libft.a
 
-all:	$(NAME)
+ # MLX
+ifeq ($(UNAME_S), Darwin)
+   MLX_PATH = mlx
+else
+    MLX_PATH = minilibx
+endif
+MLX = $(MLX_PATH)/mlx.a
+
+#Objects
+OBJ_PATH = ./objs
+OBJECTS = $(addprefix $(OBJ_PATH)/, $(SOURCES:%.c=%.o))
+
+ifeq ($(UNAME_S), Darwin)
+   LIB_PATH = -L./libft/ -lft -L./mlx/ -lmlx -framework OpenGL -framework AppKit
+else
+    LIB_PATH = -L./libft/ -lft  -L./minilibx/ -lmlx -L/usr/include/../lib -lXext -lX11 -lm
+endif
+
+all: $(NAME)
+$(NAME): $(OBJECTS)
+	@make -C $(MLX_PATH)
+	@make -C libft
+	@$(CC) -o $(NAME) $(OBJECTS) $(CFLAGS) $(LIB_PATH)
+	@echo "\n-----------------------------------------"
+	@echo "|\033[32;1m\t$(NAME) has been created !\t\t\033[0m|"
+	@echo "-----------------------------------------\n"
+
+$(OBJECTS): $(HEADERS) | $(OBJ_PATH)
+$(OBJECTS): $(OBJ_PATH)/%.o: %.c
+	$(CC) -c $(CFLAGS) $< -o $@
+
+$(OBJ_PATH):
+	@-mkdir -p $@
 
 clean:
-	@make -C libft/ clean
-	@make -C mlx/ clean
-	@rm -f $(OBJS)
-	@echo "\033[37mall fdf_files.o have been deleted\033[0m"
+	@rm -rf $(OBJ_PATH)
+	@echo "\n-------------------------------------------------"
+	@echo "|\t\033[31mall $(NAME) files.o are deleted\033[0m\t\t|"
+	@echo "-------------------------------------------------\n"
 
-fclean:	clean
+fclean: clean
 	@rm -f $(NAME)
-	@make -C libft/ fclean
-	@echo "\033[31m$(NAME) has been deleted\033[0m"
+	@echo "\n---------------------------------"
+	@echo "|\t\033[31m$(NAME) is deleted\033[0m\t\t|"
+	@echo "---------------------------------\n"
 
-re:		fclean all
+re: fclean all
 
-.PHONY: all clean fclean re
+libs:
+	@make -C libft
+	@make -C $(MLX_PATH)
 
+libs-clean:
+	@make -C libft clean
+	@make -C $(MLX_PATH) clean
+
+libs-fclean:
+	@make -C libft fclean
+	@make -C $(MLX_PATH) clean
+
+libs-re: libs-fclean
+	@make -C libft re
+	@make -C $(MLX_PATH) re
+
+fclean-all: fclean libs-fclean
+
+debug: CFLAGS := $(filter-out $(OPTI),$(CFLAGS) $(CFLAGS_DEBUG))
+debug: re
+	@echo "\n-----------------------------------------------------------------"
+	@echo "|\033[32;1m\tDebug mode for $(NAME) with $(CFLAGS_DEBUG)!\t\033[0m|"
+	@echo "-----------------------------------------------------------------\n"
+
+norme:
+	norminette $(SRC)
+	norminette $(INC_PATH)*.h
+
+.PHONY:  all, clean, fclean, re, libs, libs-clean, libs-fclean, libs-re \
+		fclean-all, debug, norme

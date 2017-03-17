@@ -20,10 +20,12 @@ t_img		*init_img(t_env *env)
 	
 	if (!(image = (t_img*)malloc(sizeof(t_img))))
 		return (NULL);
+	
 	image->img = mlx_new_image(env->mlx, SIZE_X, SIZE_Y);
 	
 	image->data = mlx_get_data_addr(image->img,\
 	 &image->bpp, &image->sizeline, &image->endian);
+	 
 	return (image);
 }
 
@@ -35,9 +37,8 @@ t_env		*new_env()
 		return (NULL);
 	env->mlx = NULL;
 	env->win = NULL;
-	env->img = init_img(env);
+	env->img = NULL;
 	env->len = 0;
-	
 	return (env);
 }
 
@@ -47,13 +48,9 @@ t_env	*init_env(int fd)
 
 	if (!(env = new_env()))
 		return (NULL);
-	
 	env->mlx = mlx_init();
-	
-	env->win = mlx_new_window(env, SIZE_X, SIZE_Y, "Fdf de fgallois");
-	
-	env->map = get_map(fd, env->len);
-	
+	env->win = mlx_new_window(env->mlx, SIZE_X, SIZE_Y, "Fdf de fgallois");
+	env->map = get_map(fd, env);
 	env->img = init_img(env);
 	
 	/*ft_putstr("Data :");
@@ -64,6 +61,7 @@ t_env	*init_env(int fd)
 	ft_putnbr((env->img)->sizeline);
 	ft_putstr(" Endian :");
 	ft_putnbr(env->img->endian);*/
+	
 	
 	return (env);
 }

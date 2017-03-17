@@ -2,18 +2,19 @@
 
 void    draw_map(t_env *env)
 {
-    int i;
-    int j;
+    int y;
+    int x;
 
-    i = 0;
-    while (env->map[i])
+    y = 0;
+    while (env->map[y])
     {
-        j = 0;
-        while (j < env->len)
+        x = 0;
+        while (x < env->len)
         {
-            mlx_put_pixel_to_image(env,&env->map[i][j]);
-            j++;
+            //ft_putnbr(env->map[i][j].z);
+            mlx_put_pixel_to_image(env,&env->map[y][x]);
+            x++;
         }
-        i++;
+        y++;
     }
 }

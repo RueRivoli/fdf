@@ -37,6 +37,7 @@ t_node		*init_node(int x0, int y0, int z0, int color0)
 	node->y = y0;
 	node->z = z0;
 	node->color = color0;
+	
 	return (node);
 }
 
@@ -53,27 +54,29 @@ void		display_node(t_node *node)
 }
 void		display_map(t_node **map, int len)
 {
-	int i;
-	int j;
+	int x;
+	int y;
 
-	i = 0;
+	y = 0;
 	if (!map)
 		ft_putstr("Erreur dans la map");
-	while (map[i])
+	while (map[y])
 	{
-		j = 0;
-		while (j < len)
+		 x = 0;
+		while (x < len)
 		{		
-			ft_putnbr(map[i][j].z);
-			if (map[i][j].color != -1)
-			{
-				ft_putchar(',');
-				ft_putnbr(map[i][j].color);
-			}
+			ft_putnbr(map[y][x].y);
+			// if (map[i][j].color != -1)
+			// {
+			// 	ft_putchar(',');
+			// 	ft_putnbr(map[i][j].color);
+			// }
 			ft_putchar(' ');
-			j++;
+			ft_putnbr(map[y][x].x);
+			ft_putchar(' ');
+			x++;
 		}
 		ft_putchar('\n');
-		i++;
+		y++;
 	}
 }

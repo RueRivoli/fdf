@@ -26,53 +26,75 @@ static int		get_color(char *str)
 	return (-1);
 }
 
+
+void				rescale(t_env *env)
+{
+	int x;
+	int y;
+	y = 0;
+	while (env->map[y])
+	{
+		x = 0;
+		while (x < env->len)
+		{
+			env->map[y][x].x = x * FENE_X / (env->len - 1);
+			env->map[y][x].y = y * FENE_Y / (env->len - 1);
+			x++; 
+		}
+
+		y++;
+	}
+}
+
 static t_node		**convert_map(char **split, t_node **map)
 {
 	int len;
-	static int j;
-	int i;
+	static int y;
+	int x;
 	t_node *new;
-	int err44;
 	char **sp;
 
-	i = 0;
 	sp = NULL;
-	err44 = -42;
 	len = ft_splitlen(split);
 	ft_putstr(" Ligne ");
-	ft_putnbr(j);
+	ft_putnbr(y);
 	ft_putstr(" : ");
 	//ft_putchar('\n');
-	map[j] = ft_memalloc(sizeof(t_node) * (len + 1));
-	if (!(map[j]))
+	map[y] = ft_memalloc(sizeof(t_node) * (len + 1));
+	map[y + 1] = NULL; 
+	x = 0;
+	if (!(map[y]))
 	{
 		free(map);
 		return (NULL);
 	}
-	while (i < len)
+	while (x < len)
 	{
-		if (ft_strchr(split[i], ',') == NULL)
+
+		if (ft_strchr(split[x], ',') == NULL)
 		{
-			new = init_node(i, j, ft_atoi(split[i]), 16777215);
-			//get_color(split[i])
+			
+			new = init_node(x, y, ft_atoi(split[x]), 16777215);
 		}
 		else
 		{
-			sp = ft_strsplit(split[i], ',');
-			new = init_node(i, j, ft_atoi(sp[0]), get_color(sp[1]));
+			sp = ft_strsplit(split[x], ',');
+			new = init_node(x, y, ft_atoi(sp[0]), get_color(sp[1]));
 		}
-		ft_memcpy(map[j], new, sizeof(new));
-		map[j][i] = *new;
+		ft_memcpy(map[y], new, sizeof(new));
+		map[y][x] = *new;
+		
+		ft_putstr(" ");
 		//display_node(&map[j][i]);
 		//ft_putnbr(map[j][i].z);
 		//ft_putchar('\n');
-		i++;
+		x++;
 	}
-	j++;
+	y++;
 	return (map);
 }
 
-t_node		**get_map(int fd, int len)
+t_node		**get_map(int fd, t_env *env)
 {
 	char *line;
 	int length;
@@ -107,7 +129,10 @@ t_node		**get_map(int fd, int len)
 		ft_putchar('\n');
 		count++;
 	}
-	len = length;
-	//display_map(map, leng);
+	
+	env->len = length;
+	//ft_putnbr(env->len);	
+	
+	display_map(map, env->len);
 	return (map);
 }

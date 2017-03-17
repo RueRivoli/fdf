@@ -31,13 +31,14 @@ int		main(int argc, char **argv)
 	//Initiation de l'environnement
 	//Récupération de la map
 	
+				
 	env = init_env(fd);
-	
+	//rescale(env);
 	draw_map(env);
 	
 	mlx_put_image_to_window(env->mlx, env->win, (env->img)->img, 0, 0);
-	mlx_string_put(env->mlx, env->win, 695, 791, 0xAEECFE, "Current zoom x");
-	mlx_string_put(env->mlx, env->win, 839, 791, 0xAEECFE, "Magic");
+	//mlx_string_put(env->mlx, env->win, 695, 791, 0xAEECFE, "Current zoom x");
+	//mlx_string_put(env->mlx, env->win, 839, 791, 0xAEECFE, "Magic");
 	
 	mlx_loop(env->mlx);
 	return (0);

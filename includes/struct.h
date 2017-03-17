@@ -6,9 +6,9 @@ typedef struct s_img
 {
 	void	*img;
 	char	*data;
-	int	bpp;
-	int	sizeline;
-	int	endian;
+	int		bpp;
+	int		sizeline;
+	int		endian;
 }		t_img;
 
 typedef struct s_node
