@@ -38,7 +38,12 @@ t_env		*new_env()
 	env->mlx = NULL;
 	env->win = NULL;
 	env->img = NULL;
-	env->len = 0;
+	env->len_x = 0;
+	env->len_y = 0;
+	env->min_x = SIZE_X;
+	env->min_y = SIZE_Y;
+	env->max_x = 0;
+	env->max_y = 0;
 	return (env);
 }
 

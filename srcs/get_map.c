@@ -1,4 +1,4 @@
-	/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
@@ -26,6 +26,61 @@ static int		get_color(char *str)
 	return (-1);
 }
 
+void				get_extreme(t_env *env)
+{
+	int i;
+	int j;
+	t_node **map;
+	//int min_x;
+	//int min_y;
+	//int max_x;
+	//int max_y;
+
+	//min_x = SIZE_X;
+	//min_y = SIZE_Y;
+	//max_x = 0;
+	//max_y = 0;
+	map = env->map;
+	j = 0;
+	while (j < env->len_y)
+	{
+		i = 0;
+		while (i < env->len_x)
+		{
+			if (map[j][i].x < env->min_x)
+				env->min_x = map[j][i].x;
+			if (map[j][i].x > env->max_x)
+				env->max_x = map[j][i].x;
+			if (map[j][i].y < env->min_y)
+				env->min_y = map[j][i].y;
+			if (map[j][i].y > env->max_y)
+				env->max_y = map[j][i].y;
+			i++;
+		}
+		j++;
+	}
+}
+
+void				scale(t_env *env)
+{
+	int x;
+	int y;
+	y = 0;
+	t_node **map;
+	map = env->map;
+	while (y < env->len_y)
+	{
+		x = 0;
+		ft_putnbr(y);
+		while (x < env->len_x)
+		{
+			env->map[y][x].x = FENE_X / 8 + (map[y][x].x - env->min_x) * 7 * FENE_X /  (8 * (env->max_x - env->min_x));
+			env->map[y][x].y = FENE_Y / 8  + (map[y][x].y - env->min_y) * 7 * FENE_Y / (8 * (env->max_y - env->min_y));
+			x++; 
+		}
+		y++;
+	}
+}
 
 void				rescale(t_env *env)
 {
@@ -35,13 +90,12 @@ void				rescale(t_env *env)
 	while (env->map[y])
 	{
 		x = 0;
-		while (x < env->len)
+		while (x < env->len_x)
 		{
-			env->map[y][x].x = x * FENE_X / (env->len - 1);
-			env->map[y][x].y = y * FENE_Y / (env->len - 1);
+			env->map[y][x].x = FENE_X / 8 + x * FENE_X * 7 / (8 * env->len_x - 1);
+			env->map[y][x].y = FENE_Y / 8 + y * FENE_Y * 7 / (8 * env->len_y - 1);
 			x++; 
 		}
-
 		y++;
 	}
 }
@@ -73,7 +127,6 @@ static t_node		**convert_map(char **split, t_node **map)
 
 		if (ft_strchr(split[x], ',') == NULL)
 		{
-			
 			new = init_node(x, y, ft_atoi(split[x]), 16777215);
 		}
 		else
@@ -81,12 +134,12 @@ static t_node		**convert_map(char **split, t_node **map)
 			sp = ft_strsplit(split[x], ',');
 			new = init_node(x, y, ft_atoi(sp[0]), get_color(sp[1]));
 		}
-		ft_memcpy(map[y], new, sizeof(new));
+		//ft_memcpy(map[y], new, sizeof(new));
 		map[y][x] = *new;
 		
-		ft_putstr(" ");
+		//ft_putstr(" ");
 		//display_node(&map[j][i]);
-		//ft_putnbr(map[j][i].z);
+		//ft_putnbr(map[y][x].x);
 		//ft_putchar('\n');
 		x++;
 	}
@@ -130,9 +183,9 @@ t_node		**get_map(int fd, t_env *env)
 		count++;
 	}
 	
-	env->len = length;
-	//ft_putnbr(env->len);	
+	env->len_x = length;
+	env->len_y = count;
 	
-	display_map(map, env->len);
+	//display_map(map, env->len_x);
 	return (map);
 }

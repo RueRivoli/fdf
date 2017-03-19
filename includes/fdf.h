@@ -19,9 +19,22 @@ t_env	*new_env();
 t_env	*init_env(int fd);
 t_node	**get_map(int fd, t_env *env);
 t_node	*insert_node(t_node *node, t_node *new);
-void	display_map(t_node **map, int len);
+void	display_map(t_node **map, t_env *env);
 void	display_node(t_node *node);
 void    mlx_put_pixel_to_image(t_env *env, t_node *node);
 void    draw_map(t_env *env);
+void    draw_segment(t_env *env, t_node *node1, t_node *node2);
+void    draw_link(t_env *env);
 void    rescale(t_env *env);
+t_node **rotation_y(t_node **map, int len_x, int len_y);
+t_node  **rotation_z(t_node **map, int len_x, int len_y);
+t_node  **proj_z(t_node **map, int len_x, int len_y);
+void    draw_vertical(t_env *env, t_node *node1, t_node *node2, int color);
+void    draw_horizontal(t_env *env, t_node *node1, t_node *node2, int color);
+void    draw_soft_rise(t_env *env, t_node *node1, t_node *node2, int color);
+void    draw_high_rise(t_env *env, t_node *node1, t_node *node2, int color);
+void	get_extreme(t_env *env);
+void    scale(t_env *env);
+int    right_color(t_node *node1, t_node *node2);
+
 #endif

@@ -25,7 +25,12 @@ typedef struct s_env
 	void	*win;
 	t_img	*img;
 	t_node	**map;
-	int		len;
+	int		len_x;
+	int 	len_y;
+	int 	min_x;
+	int 	min_y;
+	int 	max_x;
+	int     max_y;
 }			t_env;
 
 

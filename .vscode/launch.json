@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/fdf",
-            "args": ["${workspaceRoot}/test_maps/10-2.fdf"],
+            "args": ["${workspaceRoot}/test_maps/10-70.fdf"],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],
