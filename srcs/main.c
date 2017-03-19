@@ -40,7 +40,6 @@ int		main(int argc, char **argv)
 	env->map = rotation_z(env->map, env->len_x, env->len_y);
 	env->map = proj_z(env->map, env->len_x, env->len_y);
 	get_extreme(env);
-	ft_putnbr(env->min_x);
 	scale(env);
 	
 
