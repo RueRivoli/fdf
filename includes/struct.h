@@ -24,6 +24,8 @@ typedef struct s_env
 	void	*mlx;
 	void	*win;
 	t_img	*img;
+	t_img 	*back_img;
+	t_img	*sup_img;
 	t_node	**map;
 	int		len_x;
 	int 	len_y;

@@ -28,6 +28,7 @@ int		main(int argc, char **argv)
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
 		ft_putstr("erreur dans le fichier");
 
+
 	//Initiation de l'environnement
 	//Récupération de la map
 	
@@ -49,8 +50,10 @@ int		main(int argc, char **argv)
 	
 	draw_link(env);
 
-	mlx_put_image_to_window(env->mlx, env->win, (env->img)->img, 0, 0);
-	//mlx_string_put(env->mlx, env->win, 695, 791, 0xAEECFE, "Current zoom x");
+	mlx_put_image_to_window(env->mlx, env->win, (env->back_img)->img, 0, 0);
+	mlx_put_image_to_window(env->mlx, env->win, (env->sup_img)->img, 360, 80);
+	mlx_put_image_to_window(env->mlx, env->win, (env->img)->img, 400, 100);
+	mlx_string_put(env->mlx, env->win, 900, 10, 0x3A5FCD, "FDF");
 	//mlx_string_put(env->mlx, env->win, 839, 791, 0xAEECFE, "Magic");
 	
 	mlx_loop(env->mlx);

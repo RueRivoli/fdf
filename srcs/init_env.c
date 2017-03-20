@@ -14,21 +14,6 @@
 #include "define.h"
 #include "fdf.h"
 
-t_img		*init_img(t_env *env)
-{
-	t_img	*image;
-	
-	if (!(image = (t_img*)malloc(sizeof(t_img))))
-		return (NULL);
-	
-	image->img = mlx_new_image(env->mlx, SIZE_X, SIZE_Y);
-	
-	image->data = mlx_get_data_addr(image->img,\
-	 &image->bpp, &image->sizeline, &image->endian);
-	 
-	return (image);
-}
-
 t_env		*new_env()
 {
 	t_env *env;
@@ -38,6 +23,8 @@ t_env		*new_env()
 	env->mlx = NULL;
 	env->win = NULL;
 	env->img = NULL;
+	env->back_img = NULL;
+	env->sup_img = NULL;
 	env->len_x = 0;
 	env->len_y = 0;
 	env->min_x = SIZE_X;
@@ -50,14 +37,20 @@ t_env		*new_env()
 t_env	*init_env(int fd)
 {
 	t_env *env;
+	int h;
+	int w;
 
+	h = HEIGHT_DRAW;
+	w = WIDTH_DRAW;
 	if (!(env = new_env()))
 		return (NULL);
 	env->mlx = mlx_init();
 	env->win = mlx_new_window(env->mlx, SIZE_X, SIZE_Y, "Fdf de fgallois");
 	env->map = get_map(fd, env);
-	env->img = init_img(env);
-	
+	env->img = init_img(env, FENE_X, FENE_Y);
+	env->back_img = init_img(env, SIZE_X, SIZE_Y);
+	env->sup_img = init_img(env, SUPP_X, SUPP_Y);
+	fill_img(env, &h, &w);
 	/*ft_putstr("Data :");
 	ft_putstr((env->img)->data);
 	ft_putstr(" Bpp :");

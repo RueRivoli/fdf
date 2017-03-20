@@ -11,7 +11,8 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 
-t_img	*init_img(t_env *env);
+t_img	*init_img(t_env *env, int height, int width);
+void	fill_img(t_env *env, int *h, int *w);
 t_env	*init_env();
 t_node	*new_node();
 t_node	*init_node(int x0, int y0, int z0, int color0);
