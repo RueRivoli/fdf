@@ -33,6 +33,9 @@ typedef struct s_env
 	int 	min_y;
 	int 	max_x;
 	int     max_y;
+	int 	x;
+	int 	y;
+
 }			t_env;
 
 

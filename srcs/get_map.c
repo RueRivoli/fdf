@@ -71,7 +71,7 @@ void				scale(t_env *env)
 	while (y < env->len_y)
 	{
 		x = 0;
-		ft_putnbr(y);
+		//ft_putnbr(y);
 		while (x < env->len_x)
 		{
 			env->map[y][x].x = FENE_X / 8 + (map[y][x].x - env->min_x) * 7 * FENE_X /  (8 * (env->max_x - env->min_x));
@@ -110,9 +110,9 @@ static t_node		**convert_map(char **split, t_node **map)
 
 	sp = NULL;
 	len = ft_splitlen(split);
-	ft_putstr(" Ligne ");
-	ft_putnbr(y);
-	ft_putstr(" : ");
+	//ft_putstr(" Ligne ");
+	//ft_putnbr(y);
+	//ft_putstr(" : ");
 	//ft_putchar('\n');
 	map[y] = ft_memalloc(sizeof(t_node) * (len + 1));
 	map[y + 1] = NULL; 

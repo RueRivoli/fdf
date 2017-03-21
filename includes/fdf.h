@@ -37,5 +37,10 @@ void    draw_high_rise(t_env *env, t_node *node1, t_node *node2, int color);
 void	get_extreme(t_env *env);
 void    scale(t_env *env);
 int    right_color(t_node *node1, t_node *node2);
+int     mouse_funct(int button, int x, int y, t_env *env);
+int     key_funct(int keycode, t_env *env);
+int    print_title(t_env *env);
+void    print_coord(int x, int y, t_env *env);
+void     print_image(t_env *env);
 
 #endif

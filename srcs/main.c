@@ -50,10 +50,20 @@ int		main(int argc, char **argv)
 	
 	draw_link(env);
 
-	mlx_put_image_to_window(env->mlx, env->win, (env->back_img)->img, 0, 0);
+	print_image(env);
+	/*mlx_put_image_to_window(env->mlx, env->win, (env->back_img)->img, 0, 0);
 	mlx_put_image_to_window(env->mlx, env->win, (env->sup_img)->img, 360, 80);
-	mlx_put_image_to_window(env->mlx, env->win, (env->img)->img, 400, 100);
-	mlx_string_put(env->mlx, env->win, 900, 10, 0x3A5FCD, "FDF");
+	mlx_put_image_to_window(env->mlx, env->win, (env->img)->img, 400, 100);*/
+	/*mlx_string_put(env->mlx, env->win, 900, 10, 0x3A5FCD, "FDF");
+	mlx_string_put(env->mlx, env->win, 50, 300, 0x3A5FCD, "Current x : ");
+	mlx_string_put(env->mlx, env->win, 70, 300, 0x3A5FCD, ft_itoa());
+	mlx_string_put(env->mlx, env->win, 50, 360, 0x3A5FCD, "Current y : ");
+	mlx_string_put(env->mlx, env->win, 50, 300, 0x3A5FCD, "Current x : ");
+	mlx_string_put(env->mlx, env->win, 50, 420, 0x3A5FCD, "Altitude : ");
+	mlx_string_put(env->mlx, env->win, 50, 300, 0x3A5FCD, "Current x : ");*/
+	//mlx_key_hook(env->win, key_funct, &env->mlx);
+	mlx_mouse_hook(env->win, &mouse_funct, &env->mlx);
+	mlx_expose_hook(env->win, &print_title, &env->mlx);
 	//mlx_string_put(env->mlx, env->win, 839, 791, 0xAEECFE, "Magic");
 	
 	mlx_loop(env->mlx);
