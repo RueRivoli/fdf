@@ -33,10 +33,11 @@ t_env		*new_env()
 	env->max_y = 0;
 	env->x = 0;
 	env->y = 0;
+	env->filename = "";
 	return (env);
 }
 
-t_env	*init_env(int fd)
+t_env	*init_env(int fd, char *av1)
 {
 	t_env *env;
 	int h;
@@ -52,6 +53,8 @@ t_env	*init_env(int fd)
 	env->img = init_img(env, FENE_X, FENE_Y);
 	env->back_img = init_img(env, SIZE_X, SIZE_Y);
 	env->sup_img = init_img(env, SUPP_X, SUPP_Y);
+	env->filename = get_file_name(av1);
+	ft_putstr(env->filename);
 	fill_img(env, &h, &w);
 	/*ft_putstr("Data :");
 	ft_putstr((env->img)->data);

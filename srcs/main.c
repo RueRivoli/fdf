@@ -13,6 +13,17 @@
 #include "define.h"
 #include "fdf.h"
 
+char 	*get_file_name(char *av1)
+{
+	char *st;
+	
+	st = NULL;
+	if (ft_ispresent(av1, '/') == 1)
+		st = ft_strrchr(av1, '/');
+	else
+		st = av1;
+	return (ft_strsub(st, 1, ft_strlen(st) - 5));
+}
 
 int		main(int argc, char **argv)
 {
@@ -25,7 +36,7 @@ int		main(int argc, char **argv)
 		ft_putstr("usage: fdf [map.fdf]");
 		return (0);
 	}
-	if ((fd = open(argv[1], O_RDONLY)) < 0)
+	if ((fd = open(argv[1], O_RDONLY)) < 0 || !(ft_strstr(argv[1], ".fdf")))
 		ft_putstr("erreur dans le fichier");
 
 
@@ -33,8 +44,7 @@ int		main(int argc, char **argv)
 	//Récupération de la map
 	
 				
-	env = init_env(fd);
-	
+	env = init_env(fd, argv[1]);
 	rescale(env);
 	
 	//env->map = rotation_y(env->map, env->len_x, env->len_y);

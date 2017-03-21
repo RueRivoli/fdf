@@ -35,6 +35,7 @@ typedef struct s_env
 	int     max_y;
 	int 	x;
 	int 	y;
+	char *filename;
 
 }			t_env;
 

@@ -17,7 +17,7 @@ t_env	*init_env();
 t_node	*new_node();
 t_node	*init_node(int x0, int y0, int z0, int color0);
 t_env	*new_env();
-t_env	*init_env(int fd);
+t_env	*init_env(int fd, char *av1);
 t_node	**get_map(int fd, t_env *env);
 t_node	*insert_node(t_node *node, t_node *new);
 void	display_map(t_node **map, t_env *env);
@@ -42,5 +42,6 @@ int     key_funct(int keycode, t_env *env);
 int    print_title(t_env *env);
 void    print_coord(int x, int y, t_env *env);
 void     print_image(t_env *env);
+char    *get_file_name(char *av1);
 
 #endif

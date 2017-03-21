@@ -31,15 +31,6 @@ void				get_extreme(t_env *env)
 	int i;
 	int j;
 	t_node **map;
-	//int min_x;
-	//int min_y;
-	//int max_x;
-	//int max_y;
-
-	//min_x = SIZE_X;
-	//min_y = SIZE_Y;
-	//max_x = 0;
-	//max_y = 0;
 	map = env->map;
 	j = 0;
 	while (j < env->len_y)
@@ -71,11 +62,10 @@ void				scale(t_env *env)
 	while (y < env->len_y)
 	{
 		x = 0;
-		//ft_putnbr(y);
 		while (x < env->len_x)
 		{
-			env->map[y][x].x = FENE_X / 8 + (map[y][x].x - env->min_x) * 7 * FENE_X /  (8 * (env->max_x - env->min_x));
-			env->map[y][x].y = FENE_Y / 8  + (map[y][x].y - env->min_y) * 7 * FENE_Y / (8 * (env->max_y - env->min_y));
+			env->map[y][x].x = FENE_X / 8 + (map[y][x].x - env->min_x) * 6 * FENE_X /  (8 * (env->max_x - env->min_x));
+			env->map[y][x].y = FENE_Y / 8  + (map[y][x].y - env->min_y) * 6 * FENE_Y / (8 * (env->max_y - env->min_y));
 			x++; 
 		}
 		y++;
@@ -92,8 +82,8 @@ void				rescale(t_env *env)
 		x = 0;
 		while (x < env->len_x)
 		{
-			env->map[y][x].x = FENE_X / 8 + x * FENE_X * 7 / (8 * env->len_x - 1);
-			env->map[y][x].y = FENE_Y / 8 + y * FENE_Y * 7 / (8 * env->len_y - 1);
+			env->map[y][x].x = FENE_X / 8 + x * FENE_X * 6 / (8 * env->len_x - 1);
+			env->map[y][x].y = FENE_Y / 8 + y * FENE_Y * 6 / (8 * env->len_y - 1);
 			x++; 
 		}
 		y++;
@@ -110,10 +100,7 @@ static t_node		**convert_map(char **split, t_node **map)
 
 	sp = NULL;
 	len = ft_splitlen(split);
-	//ft_putstr(" Ligne ");
-	//ft_putnbr(y);
-	//ft_putstr(" : ");
-	//ft_putchar('\n');
+
 	map[y] = ft_memalloc(sizeof(t_node) * (len + 1));
 	map[y + 1] = NULL; 
 	x = 0;

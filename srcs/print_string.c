@@ -2,7 +2,8 @@
 
 int    print_title(t_env *env)
 {
-    printf("%d\n", mlx_string_put(env->mlx, env->win, 900, 10, 0x3A5FCD, "FDF"));
+    mlx_string_put(env->mlx, env->win, 900, 10, 0x3A5FCD, "File name : ");
+    mlx_string_put(env->mlx, env->win, 1050, 10, 0x3A5FCD, env->filename);
     mlx_string_put(env->mlx, env->win, 50, 300, 0x3A5FCD, "Current x : ");
     mlx_string_put(env->mlx, env->win, 50, 360, 0x3A5FCD, "Current y : ");
     return (0);
@@ -27,8 +28,5 @@ void    print_coord(int x, int y, t_env *env)
     d = ft_itoa(env->y);
     mlx_string_put(env->mlx, env->win, 190, 300, 0x3A5FCD, c);
     mlx_string_put(env->mlx, env->win, 190, 360, 0x3A5FCD, d);
-    free(c);
-    free(d);
-    c = NULL;
-    d = NULL;
+    
 }
