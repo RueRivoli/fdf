@@ -29,11 +29,48 @@
 # define BACK_Y 850
 # define SUPP_X 1240
 # define SUPP_Y 940
-# define CTE 3.5
+
 # define COLOR_HIGH_ALT 10764449
 # define COLOR_RISE 10784064
 # define COLOR_Z_0 16777215
-# define HEIGHT_DRAW 800;
-# define WIDTH_DRAW 600;
+# define HEIGHT_DRAW 800
+# define WIDTH_DRAW 600
+
+/*
+* Origines
+*/
+
+# define ORIGIN_GRAPH_X 400
+# define ORIGIN_GRAPH_Y 100
+/*
+*Constantes geometriques
+*/
+
+# define CTE 1
+# define CTE1 0.5
+# define CTE2 0.5
+# define COEFF_TRANS 15
+# define COEFF_ZOOM 0.3
+
+/*
+*key_code
+*/
+
+# define TOUCH_ESC 53
+# define ARROW_LEFT 123
+# define ARROW_DOWN 125
+# define ARROW_RIGHT 124
+# define ARROW_UP 126
+# define TOUCH_O 31
+# define TOUCH_PLUS 69
+# define TOUCH_LESS 78
+
+/*
+*button of mouse
+*/ 
+
+# define SCROLL_UP 7
+# define SCROLL_DOWN 6
+
 
 #endif

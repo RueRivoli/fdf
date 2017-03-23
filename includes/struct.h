@@ -33,6 +33,8 @@ typedef struct s_env
 	int 	min_y;
 	int 	max_x;
 	int     max_y;
+	int 	max_z;
+	int		min_z;
 	int 	x;
 	int 	y;
 	char *filename;

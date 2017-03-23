@@ -13,16 +13,29 @@
 #include "define.h"
 #include "fdf.h"
 
+void	error_no_conform(void)
+{
+	ft_putstr("Le fichier n'est pas conforme \n");
+}
+
+void	error_no_file(void)
+{
+	ft_putstr("Le fichier n'existe pas\n");
+}
+
 char 	*get_file_name(char *av1)
 {
 	char *st;
 	
 	st = NULL;
 	if (ft_ispresent(av1, '/') == 1)
+	{
 		st = ft_strrchr(av1, '/');
+		st++;
+	}
 	else
 		st = av1;
-	return (ft_strsub(st, 1, ft_strlen(st) - 5));
+	return (ft_strsub(st, 0, ft_strlen(st) - 4));
 }
 
 int		main(int argc, char **argv)
@@ -33,23 +46,36 @@ int		main(int argc, char **argv)
 	fd = 0;
 	if (argc != 2)
 	{
-		ft_putstr("usage: fdf [map.fdf]");
+		ft_putstr("usage: fdf [map.fdf]\n");
 		return (0);
 	}
-	if ((fd = open(argv[1], O_RDONLY)) < 0 || !(ft_strstr(argv[1], ".fdf")))
-		ft_putstr("erreur dans le fichier");
+	if (!(ft_strstr(argv[1], ".fdf")))
+	{
+		error_no_conform();
+		return (0);
+	}
+	if ((fd = open(argv[1], O_RDONLY)) < 0)
+	{
+		error_no_file();
+		return (0);
+	}
 
 
 	//Initiation de l'environnement
-	//Récupération de la map
+	//Récupération de la map : partie obligatoire
 	
-				
-	env = init_env(fd, argv[1]);
+			
+	if (!(env = init_env(fd, argv[1])))
+	{
+		error_no_conform();
+		return (0);
+	}
 	rescale(env);
 	
 	//env->map = rotation_y(env->map, env->len_x, env->len_y);
-	env->map = rotation_z(env->map, env->len_x, env->len_y);
-	env->map = proj_z(env->map, env->len_x, env->len_y);
+	//env->map = rotation_z(env->map, env->len_x, env->len_y);
+	env->map = proj_para(env->map, env->len_x, env->len_y);
+	//env->map = proj_con(env->map, env, env->len_x, env->len_y);
 	get_extreme(env);
 	scale(env);
 	
@@ -60,21 +86,12 @@ int		main(int argc, char **argv)
 	
 	draw_link(env);
 
-	print_image(env);
-	/*mlx_put_image_to_window(env->mlx, env->win, (env->back_img)->img, 0, 0);
-	mlx_put_image_to_window(env->mlx, env->win, (env->sup_img)->img, 360, 80);
-	mlx_put_image_to_window(env->mlx, env->win, (env->img)->img, 400, 100);*/
-	/*mlx_string_put(env->mlx, env->win, 900, 10, 0x3A5FCD, "FDF");
-	mlx_string_put(env->mlx, env->win, 50, 300, 0x3A5FCD, "Current x : ");
-	mlx_string_put(env->mlx, env->win, 70, 300, 0x3A5FCD, ft_itoa());
-	mlx_string_put(env->mlx, env->win, 50, 360, 0x3A5FCD, "Current y : ");
-	mlx_string_put(env->mlx, env->win, 50, 300, 0x3A5FCD, "Current x : ");
-	mlx_string_put(env->mlx, env->win, 50, 420, 0x3A5FCD, "Altitude : ");
-	mlx_string_put(env->mlx, env->win, 50, 300, 0x3A5FCD, "Current x : ");*/
-	//mlx_key_hook(env->win, key_funct, &env->mlx);
+	print_all(env);
+
+
+	mlx_key_hook(env->win, key_funct, &env->mlx);
 	mlx_mouse_hook(env->win, &mouse_funct, &env->mlx);
 	mlx_expose_hook(env->win, &print_title, &env->mlx);
-	//mlx_string_put(env->mlx, env->win, 839, 791, 0xAEECFE, "Magic");
 	
 	mlx_loop(env->mlx);
 	return (0);

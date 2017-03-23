@@ -37,7 +37,6 @@ t_node		*init_node(int x0, int y0, int z0, int color0)
 	node->y = y0;
 	node->z = z0;
 	node->color = color0;
-	
 	return (node);
 }
 

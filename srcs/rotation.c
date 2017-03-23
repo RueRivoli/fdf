@@ -45,7 +45,7 @@
     return (new);
 }*/
 
-t_node  **proj_z(t_node **map, int len_x, int len_y)
+t_node  **proj_iso(t_node **map, int len_x, int len_y)
 {
     
     t_node **new;
@@ -64,8 +64,8 @@ t_node  **proj_z(t_node **map, int len_x, int len_y)
         i = 0;
         while (i < len_x)
         {
-            x = map[j][i].x - (CTE/ 3) * map[j][i].z;
-            y = map[j][i].y - CTE * map[j][i].z;
+            x = CTE1 * map[j][i].x - CTE2 * map[j][i].y;
+            y = - 2 * map[j][i].z + (CTE1/2)*map[j][i].x + (CTE2/2) * map[j][i].y;
             add = init_node((int)x, (int)y, map[j][i].z , map[j][i].color);
             new[j][i] = *add;
             i++;
@@ -75,9 +75,72 @@ t_node  **proj_z(t_node **map, int len_x, int len_y)
     return (new);
 }
 
-t_node  **rotation_z(t_node **map, int len_x, int len_y)
+t_node  **proj_para(t_node **map, int len_x, int len_y)
 {
     
+    t_node **new;
+    t_node *add;
+    int x;
+    int y;
+    int i;
+    int j;
+
+    if (len_x == 0 || !(new = ft_memalloc(sizeof(t_node*) * len_x)))
+        return (NULL);
+    j = 0;
+    while (j < len_y)
+    {
+        new[j] = ft_memalloc(sizeof(t_node) * len_x);
+        i = 0;
+        while (i < len_x)
+        {
+            x = map[j][i].x - CTE * map[j][i].z;
+            y = map[j][i].y + (CTE/2) * map[j][i].z;
+            add = init_node((int)x, (int)y, map[j][i].z , map[j][i].color);
+            new[j][i] = *add;
+            i++;
+        }
+        j++;
+    }
+    return (new);
+}
+
+/*t_node  **proj_con(t_node **map, t_env *env, int len_x, int len_y)
+{
+    
+    t_node **new;
+    t_node *add;
+    int x;
+    int y;
+    int i;
+    int j;
+    int x_mil;
+    int y_mil;
+
+    x_min = (min_x + max_x) / 2;
+    y_mil = (min_y + max_y) / 2;
+    if (len_x == 0 || !(new = ft_memalloc(sizeof(t_node*) * len_x)))
+        return (NULL);
+    j = 0;
+    while (j < len_y)
+    {
+        new[j] = ft_memalloc(sizeof(t_node) * len_x);
+        i = 0;
+        while (i < len_x)
+        {   
+            x = map[j][i].x + (map[j][i].x - x_mil)*(env->max_z - map[j][i].z);
+            y = map[j][i].y + (map[j][i].y - y_mil)*(env->max_z - map[j][i].z);
+            add = init_node((int)x, (int)y, map[j][i].z , map[j][i].color);
+            new[j][i] = *add;
+            i++;
+        }
+        j++;
+    }
+    return (new);
+}*/
+
+t_node  **rotation_z(t_node **map, int len_x, int len_y)
+{
     t_node **new;
     t_node *add;
     int x;

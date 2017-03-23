@@ -33,6 +33,8 @@ void				get_extreme(t_env *env)
 	t_node **map;
 	map = env->map;
 	j = 0;
+	env->min_z = env->map[0][0].z;
+	env->max_z = env->map[0][0].z;
 	while (j < env->len_y)
 	{
 		i = 0;
@@ -46,6 +48,10 @@ void				get_extreme(t_env *env)
 				env->min_y = map[j][i].y;
 			if (map[j][i].y > env->max_y)
 				env->max_y = map[j][i].y;
+			if (map[j][i].z > env->max_z)
+				env->max_z = map[j][i].z;
+			if (map[j][i].z < env->min_z)
+				env->min_z = map[j][i].z;
 			i++;
 		}
 		j++;
@@ -100,7 +106,6 @@ static t_node		**convert_map(char **split, t_node **map)
 
 	sp = NULL;
 	len = ft_splitlen(split);
-
 	map[y] = ft_memalloc(sizeof(t_node) * (len + 1));
 	map[y + 1] = NULL; 
 	x = 0;
@@ -111,23 +116,20 @@ static t_node		**convert_map(char **split, t_node **map)
 	}
 	while (x < len)
 	{
-
 		if (ft_strchr(split[x], ',') == NULL)
 		{
+			if (ft_isnumber(split[x]) == 0)
+				return (NULL);
 			new = init_node(x, y, ft_atoi(split[x]), 16777215);
 		}
 		else
 		{
 			sp = ft_strsplit(split[x], ',');
+			if (ft_isnumber(sp[0]) == 0 || get_color(sp[1]) == -1)
+				return (NULL);
 			new = init_node(x, y, ft_atoi(sp[0]), get_color(sp[1]));
 		}
-		//ft_memcpy(map[y], new, sizeof(new));
 		map[y][x] = *new;
-		
-		//ft_putstr(" ");
-		//display_node(&map[j][i]);
-		//ft_putnbr(map[y][x].x);
-		//ft_putchar('\n');
 		x++;
 	}
 	y++;
@@ -155,18 +157,22 @@ t_node		**get_map(int fd, t_env *env)
 	{
 		split = ft_strsplit(line,' ');	
 		length = ft_splitlen(split);
-		map = convert_map(split, map);
+		if (!(map = convert_map(split, map)))
+			return (NULL);
 	}
 	else
-		ft_putstr("Erreur dans l'ouverture du fichier");
+	{
+		//ft_putstr("Erreur dans l'ouverture du fichier");
+		return (NULL);
+	}
 	while (get_next_line(fd, &line) > 0)
 	{
 		map = (t_node**)ft_realloc((void*)map,sizeof(t_node*) * (count + 1), sizeof(t_node*) * count);
 		split = ft_strsplit(line, ' ');
 		if (ft_splitlen(split) != length)
-			ft_putstr("error");
-		map = convert_map(split, map);
-		ft_putchar('\n');
+			return (NULL);
+		if (!(map = convert_map(split, map)))
+			return (NULL);
 		count++;
 	}
 	

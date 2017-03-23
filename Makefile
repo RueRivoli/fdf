@@ -6,7 +6,7 @@
 #    By: fgallois <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/13 14:16:34 by fgallois          #+#    #+#              #
-#    Updated: 2017/03/13 14:16:41 by fgallois         ###   ########.fr        #
+#    Updated: 2017/03/23 12:12:51 by fgallois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ CFLAGS += $(addprefix -I,$(INC_PATH) $(LIBFT_INC_PATH) $(MLX_INC_PATH))
 SRC_PATH = srcs/
 vpath %.c $(SRC_PATH)
 
-SOURCES = main.c init_node.c init_img.c get_map.c init_env.c rotation.c draw.c key_funct.c print_string.c mouse_funct.c
+SOURCES = main.c init_node.c init_img.c get_map.c init_env.c rotation.c draw.c print_string.c mouse_funct.c change_view.c
 
 # Libft
  LIBFT_PATH = libft

@@ -31,6 +31,8 @@ t_env		*new_env()
 	env->min_y = SIZE_Y;
 	env->max_x = 0;
 	env->max_y = 0;
+	env->min_z = 0;
+	env->max_z = 0;
 	env->x = 0;
 	env->y = 0;
 	env->filename = "";
@@ -47,14 +49,14 @@ t_env	*init_env(int fd, char *av1)
 	w = WIDTH_DRAW;
 	if (!(env = new_env()))
 		return (NULL);
+	if (!(env->map = get_map(fd, env)))
+		return (NULL);
 	env->mlx = mlx_init();
 	env->win = mlx_new_window(env->mlx, SIZE_X, SIZE_Y, "Fdf de fgallois");
-	env->map = get_map(fd, env);
 	env->img = init_img(env, FENE_X, FENE_Y);
 	env->back_img = init_img(env, SIZE_X, SIZE_Y);
 	env->sup_img = init_img(env, SUPP_X, SUPP_Y);
 	env->filename = get_file_name(av1);
-	ft_putstr(env->filename);
 	fill_img(env, &h, &w);
 	/*ft_putstr("Data :");
 	ft_putstr((env->img)->data);
