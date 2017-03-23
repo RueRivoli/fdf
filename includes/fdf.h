@@ -16,9 +16,9 @@
 */
 void    trace(t_env *env);
 int    translation(t_env *env, int number);
-void    recenter(t_env *env);
-void    zoom(t_env *env, int a, int b);
-void    dezoom(t_env *env, int a, int b);
+void    reinitialise(t_env *env);
+void    zoom(t_env *env);
+void    dezoom(t_env *env);
 
 
 /*
@@ -84,6 +84,8 @@ void     print_image_back(t_env *env);
 void     print_image_supp(t_env *env);
 void     print_image_graph(t_env *env);
 void     print_all(t_env *env);
+int    prevent_large_zoom(t_env *env, int x, int y);
+int    prevent_large_dezoom(t_env *env, int x, int y);
 
 /*
 * rotation.c

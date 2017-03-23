@@ -65,12 +65,13 @@ void		display_map(t_node **map, t_env *env)
 		 x = 0;
 		while (x < env->len_x)
 		{		
-			ft_putnbr(map[y][x].z);
+			ft_putnbr(map[y][x].x);
 			// if (map[i][j].color != -1)
 			// {
-			// 	ft_putchar(',');
+			 	ft_putchar(',');
 			// 	ft_putnbr(map[i][j].color);
 			// }
+			ft_putnbr(map[y][x].y);
 			ft_putchar(' ');
 			//ft_putnbr(map[y][x].x);
 			//ft_putchar(' ');

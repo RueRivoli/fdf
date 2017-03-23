@@ -74,7 +74,7 @@ int		main(int argc, char **argv)
 	
 	//env->map = rotation_y(env->map, env->len_x, env->len_y);
 	//env->map = rotation_z(env->map, env->len_x, env->len_y);
-	env->map = proj_para(env->map, env->len_x, env->len_y);
+	env->map = proj_iso(env->map, env->len_x, env->len_y);
 	//env->map = proj_con(env->map, env, env->len_x, env->len_y);
 	get_extreme(env);
 	scale(env);
@@ -94,5 +94,8 @@ int		main(int argc, char **argv)
 	mlx_expose_hook(env->win, &print_title, &env->mlx);
 	
 	mlx_loop(env->mlx);
+	free(env->map);
+	free(env->img);
+	free(env);
 	return (0);
 }

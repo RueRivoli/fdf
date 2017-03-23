@@ -44,12 +44,15 @@ int    translation(t_env *env, int number)
         }
         j++;
     }
+    
+    ft_putstr("\n\n\n");
     get_extreme(env);
     trace(env);
+    display_map(map, env);
     return (1);
 }
 
-void     recenter(t_env *env)
+void     reinitialise(t_env *env)
 {       
         env->min_x = SIZE_X;
 	    env->min_y = SIZE_Y;
@@ -60,53 +63,60 @@ void     recenter(t_env *env)
         trace(env);
 }
 
-void    zoom(t_env *env, int a, int b)
+void    zoom(t_env *env)
 {
     int x;
 	int y;
+    int a;
+    int b;
+
 	y = 0;
 	t_node **map;
-
-    map = env->map;
+    
     get_extreme(env);
-	
+    map = env->map;	
 	while (y < env->len_y)
 	{
 		x = 0;
 		while (x < env->len_x)
 		{
-            env->map[y][x].x = (int) (env->map[y][x].x + COEFF_ZOOM * (env->map[y][x].x - (a - ORIGIN_GRAPH_X)));
-            env->map[y][x].y = (int) (env->map[y][x].y + COEFF_ZOOM * (env->map[y][x].y - (b - ORIGIN_GRAPH_Y))); 
+            a = COEFF_ZOOM * env->map[y][x].x;
+            b = COEFF_ZOOM * env->map[y][x].y;
+            env->map[y][x].x = (int)a;
+            env->map[y][x].y = (int)b;
+            /*env->map[y][x].x = (int) (env->map[y][x].x + COEFF_ZOOM * (env->map[y][x].x - (a - ORIGIN_GRAPH_X)));
+            env->map[y][x].y = (int) (env->map[y][x].y + COEFF_ZOOM * (env->map[y][x].y - (b - ORIGIN_GRAPH_Y))); */
 			x++; 
 		}
 		y++;
 	}
-        get_extreme(env);
         trace(env);
-
 }
 
-void    dezoom(t_env *env, int a, int b)
+void    dezoom(t_env *env)
 {
     int x;
 	int y;
+    int a;
+    int b;
 	y = 0;
 	t_node **map;
-
     map = env->map;
-    get_extreme(env);
-	
+	get_extreme(env);
 	while (y < env->len_y)
 	{
 		x = 0;
 		while (x < env->len_x)
 		{
-            env->map[y][x].x = (int) (env->map[y][x].x - COEFF_ZOOM * (env->map[y][x].x - (a - ORIGIN_GRAPH_X)));
-            env->map[y][x].y = (int) (env->map[y][x].y - COEFF_ZOOM * (env->map[y][x].y - (b - ORIGIN_GRAPH_Y))); 
+            a = COEFF_DEZOOM * env->map[y][x].x;
+            b = COEFF_DEZOOM * env->map[y][x].y;
+            env->map[y][x].x = (int)a;
+            env->map[y][x].y = (int)b;
+            /*env->map[y][x].x = (int) (env->map[y][x].x - COEFF_ZOOM * (env->map[y][x].x - (a - ORIGIN_GRAPH_X)));
+            env->map[y][x].y = (int) (env->map[y][x].y - COEFF_ZOOM * (env->map[y][x].y - (b - ORIGIN_GRAPH_Y)));*/
 			x++; 
 		}
 		y++;
 	}
-        get_extreme(env);
         trace(env);
 }

@@ -178,7 +178,7 @@ t_node		**get_map(int fd, t_env *env)
 	
 	env->len_x = length;
 	env->len_y = count;
-	
+	free(split);
 	//display_map(map, env->len_x);
 	return (map);
 }
