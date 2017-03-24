@@ -45,28 +45,34 @@
     return (new);
 }*/
 
-t_node  **proj_iso(t_node **map, int len_x, int len_y)
+t_node  **proj_iso(t_env *env, t_node **map)
 {
     
     t_node **new;
     t_node *add;
     int x;
     int y;
+    int z;
     int i;
     int j;
 
-    if (len_x == 0 || !(new = ft_memalloc(sizeof(t_node*) * len_x)))
+    if (env->len_x == 0 || !(new = ft_memalloc(sizeof(t_node*) * env->len_x)))
         return (NULL);
     j = 0;
-    while (j < len_y)
+    while (j < env->len_y)
     {
-        new[j] = ft_memalloc(sizeof(t_node) * len_x);
+        new[j] = ft_memalloc(sizeof(t_node) * env->len_x);
         i = 0;
-        while (i < len_x)
+        while (i < env->len_x)
         {
+            z = map[j][i].z * env->moove_z;
             x = CTE1 * map[j][i].x - CTE2 * map[j][i].y;
-            y = - 2 * map[j][i].z + (CTE1/2)*map[j][i].x + (CTE2/2) * map[j][i].y;
-            add = init_node((int)x, (int)y, map[j][i].z , map[j][i].color);
+            y = - 2 * z + (CTE1/2) * map[j][i].x + (CTE2/2) * map[j][i].y;
+            x = env->zoom * x + 15 * env->trans_x;
+            y = env->zoom * y + 15 * env->trans_y;
+            z = z * env->zoom;
+            
+            add = init_node((int)x, (int)y, (int)z , map[j][i].color);
             new[j][i] = *add;
             i++;
         }
@@ -75,28 +81,34 @@ t_node  **proj_iso(t_node **map, int len_x, int len_y)
     return (new);
 }
 
-t_node  **proj_para(t_node **map, int len_x, int len_y)
+t_node  **proj_para(t_env *env, t_node **map)
 {
     
     t_node **new;
     t_node *add;
     int x;
     int y;
+    int z;
     int i;
     int j;
 
-    if (len_x == 0 || !(new = ft_memalloc(sizeof(t_node*) * len_x)))
+    if (env->len_x == 0 || !(new = ft_memalloc(sizeof(t_node*) * env->len_x)))
         return (NULL);
     j = 0;
-    while (j < len_y)
+    while (j < env->len_y)
     {
-        new[j] = ft_memalloc(sizeof(t_node) * len_x);
+        new[j] = ft_memalloc(sizeof(t_node) * env->len_x);
         i = 0;
-        while (i < len_x)
+        while (i < env->len_x)
         {
-            x = map[j][i].x - CTE * map[j][i].z;
-            y = map[j][i].y + (CTE/2) * map[j][i].z;
-            add = init_node((int)x, (int)y, map[j][i].z , map[j][i].color);
+            z = map[j][i].z * env->moove_z;
+            x = map[j][i].x - CTE * z;
+            y = map[j][i].y + (CTE/2) * z;
+            x = env->zoom * x + 15 * env->trans_x;
+            y = env->zoom * y + 15 * env->trans_y;
+            z = z * env->zoom;
+            
+            add = init_node((int)x, (int)y, (int)z , map[j][i].color);
             new[j][i] = *add;
             i++;
         }

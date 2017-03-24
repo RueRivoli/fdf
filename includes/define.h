@@ -40,7 +40,7 @@
 * Origines
 */
 
-# define ORIGIN_GRAPH_X 400
+# define ORIGIN_GRAPH_X 360
 # define ORIGIN_GRAPH_Y 100
 /*
 *Constantes geometriques
@@ -50,8 +50,10 @@
 # define CTE1 0.5
 # define CTE2 0.5
 # define COEFF_TRANS 15
-# define COEFF_ZOOM 2
-# define COEFF_DEZOOM 0.5
+# define COEFF_ZOOM 1.2
+# define COEFF_DEZOOM 1/1.2
+# define COEFF_Z 1.2
+# define COEFF_ZD 1/1.2
 
 /*
 *key_code
@@ -62,16 +64,19 @@
 # define ARROW_DOWN 125
 # define ARROW_RIGHT 124
 # define ARROW_UP 126
-# define TOUCH_I 34
+# define TOUCH_O 31
 # define TOUCH_PLUS 69
 # define TOUCH_LESS 78
+# define TOUCH_P 35
+# define TOUCH_I 34
 
 /*
 *button of mouse
 */ 
 
-# define SCROLL_UP 5
-# define SCROLL_DOWN 4
+# define SCROLL_UP 4
+# define SCROLL_DOWN 5
+# define SCROLL_BIS 7
 
 
 #endif

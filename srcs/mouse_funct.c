@@ -5,28 +5,26 @@ int     mouse_funct(int button, int x, int y, t_env *env)
 {
     static int i;
 
-    
-    if (button == SCROLL_UP)
+   printf("button : %d\n", button); 
+    if (button == SCROLL_UP || button == SCROLL_BIS)
     {
-        if (i < 3)
-        {
             zoom(env);
             printf("num zoom: %d \n", i);
             i++;
-        }
-        else
+    
+        /*else
+        {
+            ft_putstr("kilucru");
             prevent_large_zoom(env, x, y);
+        }*/
     }
     else if (button == SCROLL_DOWN)
     {
-        if (i > -3)
-        {
             dezoom(env);
             printf("num zoom: %d \n", i);
             i--;
-        }
-        else
-            prevent_large_dezoom(env, x, y);
+        /*else
+            prevent_large_dezoom(env, x, y);*/
     }
     print_coord(x, y, env);
     return (0);
@@ -45,11 +43,15 @@ int     key_funct(int keycode, t_env *env)
         translation(env, 2);
     else if (keycode == ARROW_UP)
         translation(env, 3);
-    else if (keycode == TOUCH_I)
+    else if (keycode == TOUCH_O)
         reinitialise(env);
     else if (keycode == TOUCH_PLUS)
-        reinitialise(env);
+        moove_z(env, 1);
     else if (keycode == TOUCH_LESS)
-        reinitialise(env);
+        moove_z(env, 0);
+    else if (keycode == TOUCH_P)
+        to_other(env, 1);
+    else if (keycode == TOUCH_I)
+       to_other(env, 0);
     return (0);
 }

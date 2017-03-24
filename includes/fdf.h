@@ -14,31 +14,34 @@
 /*
 * change_view.c
 */
-void    trace(t_env *env);
+void    trace(t_env *env, t_node **pix);
 int    translation(t_env *env, int number);
 void    reinitialise(t_env *env);
 void    zoom(t_env *env);
 void    dezoom(t_env *env);
+t_node  **choose(t_env *env);
+void   moove_z(t_env *env, int i);
+void    to_other(t_env *env, int i);
 
 
 /*
 * draw.c 
 */
 int     right_color(t_node *node1, t_node *node2);
-void    draw_map(t_env *env);
+void    draw_map(t_env *env, t_node **map);
 void    draw_vertical(t_env *env, t_node *node1, t_node *node2, int color);
 void    draw_horizontal(t_env *env, t_node *node1, t_node *node2, int color);
 void    draw_soft_rise(t_env *env, t_node *node1, t_node *node2, int color);
 void    draw_high_rise(t_env *env, t_node *node1, t_node *node2, int color);
 void    draw_segment(t_env *env, t_node *node1, t_node *node2);
-void    draw_link(t_env *env);
+void    draw_link(t_env *env, t_node **map);
 
 /*
 * getmap.c
 */
-void	get_extreme(t_env *env);
-void    scale(t_env *env);
-void    rescale(t_env *env);
+void	get_extreme(t_env *env, t_node **map);
+void    scale(t_env *env, t_node **map);
+void    rescale(t_env *env, t_node **map);
 t_node		**get_map(int fd, t_env *env);
 
 /*
@@ -84,14 +87,12 @@ void     print_image_back(t_env *env);
 void     print_image_supp(t_env *env);
 void     print_image_graph(t_env *env);
 void     print_all(t_env *env);
-int    prevent_large_zoom(t_env *env, int x, int y);
-int    prevent_large_dezoom(t_env *env, int x, int y);
-
+void    print_image_sign(t_env *env);
 /*
 * rotation.c
 */
-t_node  **proj_para(t_node **map, int len_x, int len_y);
-t_node  **proj_iso(t_node **map, int len_x, int len_y);
+t_node  **proj_para(t_env *env, t_node **map);
+t_node  **proj_iso(t_env *env, t_node **map);
 t_node **rotation_y(t_node **map, int len_x, int len_y);
 t_node  **rotation_z(t_node **map, int len_x, int len_y);
 

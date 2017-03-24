@@ -11,7 +11,7 @@ int    right_color(t_node *node1, t_node *node2)
         return (COLOR_Z_0);
 }
 
-void    draw_map(t_env *env)
+void    draw_map(t_env *env, t_node **map)
 {
     int y;
     int x;
@@ -22,7 +22,7 @@ void    draw_map(t_env *env)
         x = 0;
         while (x < env->len_x)
         {        
-            mlx_put_pixel_to_image(env,&env->map[y][x]);
+            mlx_put_pixel_to_image(env,&map[y][x]);
             x++;
         }
         //ft_putchar('\n');
@@ -142,7 +142,7 @@ void    draw_segment(t_env *env, t_node *node1, t_node *node2)
 }
      
 
-void    draw_link(t_env *env)
+void    draw_link(t_env *env, t_node **map)
 {
     int x;
     int y;
@@ -154,9 +154,9 @@ void    draw_link(t_env *env)
         while (x < env->len_x)
         { 
             if (x != env->len_x - 1)                
-                draw_segment(env, &env->map[y][x], &env->map[y][x + 1]);
+                draw_segment(env, &map[y][x], &map[y][x + 1]);
             if (y != env->len_y - 1)            
-                draw_segment(env, &env->map[y][x], &env->map[y + 1][x]);
+                draw_segment(env, &map[y][x], &map[y + 1][x]);
             x++;
         }
         y++;

@@ -26,15 +26,13 @@ static int		get_color(char *str)
 	return (-1);
 }
 
-void				get_extreme(t_env *env)
+void				get_extreme(t_env *env, t_node **map)
 {
 	int i;
 	int j;
-	t_node **map;
-	map = env->map;
 	j = 0;
-	env->min_z = env->map[0][0].z;
-	env->max_z = env->map[0][0].z;
+	env->min_z = map[0][0].z;
+	env->max_z = map[0][0].z;
 	while (j < env->len_y)
 	{
 		i = 0;
@@ -58,38 +56,36 @@ void				get_extreme(t_env *env)
 	}
 }
 
-void				scale(t_env *env)
+void				scale(t_env *env, t_node **map)
 {
 	int x;
 	int y;
 	y = 0;
-	t_node **map;
-	map = env->map;
 	while (y < env->len_y)
 	{
 		x = 0;
 		while (x < env->len_x)
 		{
-			env->map[y][x].x = FENE_X / 8 + (map[y][x].x - env->min_x) * 6 * FENE_X /  (8 * (env->max_x - env->min_x));
-			env->map[y][x].y = FENE_Y / 8  + (map[y][x].y - env->min_y) * 6 * FENE_Y / (8 * (env->max_y - env->min_y));
+			map[y][x].x = FENE_X / 8 + (map[y][x].x - env->min_x) * 6 * FENE_X /  (8 * (env->max_x - env->min_x));
+			map[y][x].y = FENE_Y / 8  + (map[y][x].y - env->min_y) * 6 * FENE_Y / (8 * (env->max_y - env->min_y));
 			x++; 
 		}
 		y++;
 	}
 }
 
-void				rescale(t_env *env)
+void				rescale(t_env *env, t_node **map)
 {
 	int x;
 	int y;
 	y = 0;
-	while (env->map[y])
+	while (map[y])
 	{
 		x = 0;
 		while (x < env->len_x)
 		{
-			env->map[y][x].x = FENE_X / 8 + x * FENE_X * 6 / (8 * env->len_x - 1);
-			env->map[y][x].y = FENE_Y / 8 + y * FENE_Y * 6 / (8 * env->len_y - 1);
+			map[y][x].x = FENE_X / 8 + x * FENE_X * 6 / (8 * env->len_x - 1);
+			map[y][x].y = FENE_Y / 8 + y * FENE_Y * 6 / (8 * env->len_y - 1);
 			x++; 
 		}
 		y++;

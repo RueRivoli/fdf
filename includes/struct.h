@@ -26,6 +26,7 @@ typedef struct s_env
 	t_img	*img;
 	t_img 	*back_img;
 	t_img	*sup_img;
+	t_img	*church_img;
 	t_node	**map;
 	int		len_x;
 	int 	len_y;
@@ -37,6 +38,11 @@ typedef struct s_env
 	int		min_z;
 	int 	x;
 	int 	y;
+	float	zoom;
+	int		trans_x;
+	int		trans_y;
+	float	moove_z;
+	int		type_proj;
 	char *filename;
 
 }			t_env;

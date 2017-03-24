@@ -25,6 +25,7 @@ t_env		*new_env()
 	env->img = NULL;
 	env->back_img = NULL;
 	env->sup_img = NULL;
+	env->church_img = NULL;
 	env->len_x = 0;
 	env->len_y = 0;
 	env->min_x = SIZE_X;
@@ -35,7 +36,12 @@ t_env		*new_env()
 	env->max_z = 0;
 	env->x = 0;
 	env->y = 0;
+	env->zoom = 1.0;
+	env->trans_x = 0;
+	env->trans_y = 0;
+	env->moove_z = 1.0;
 	env->filename = "";
+	env->type_proj = 0;
 	return (env);
 }
 
@@ -56,6 +62,7 @@ t_env	*init_env(int fd, char *av1)
 	env->img = init_img(env, FENE_X, FENE_Y);
 	env->back_img = init_img(env, SIZE_X, SIZE_Y);
 	env->sup_img = init_img(env, SUPP_X, SUPP_Y);
+	env->church_img = init_img(env, 271, 271);
 	env->filename = get_file_name(av1);
 	fill_img(env, &h, &w);
 	/*ft_putstr("Data :");

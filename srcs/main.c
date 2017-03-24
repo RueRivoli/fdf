@@ -41,8 +41,10 @@ char 	*get_file_name(char *av1)
 int		main(int argc, char **argv)
 {
 	int fd;
-	t_env *env;
+	t_env *env;	
+	t_node **pix;
 
+	
 	fd = 0;
 	if (argc != 2)
 	{
@@ -60,6 +62,7 @@ int		main(int argc, char **argv)
 		return (0);
 	}
 
+	
 
 	//Initiation de l'environnement
 	//Récupération de la map : partie obligatoire
@@ -70,24 +73,26 @@ int		main(int argc, char **argv)
 		error_no_conform();
 		return (0);
 	}
-	rescale(env);
-	
+	ft_putstr("Point");
+	rescale(env, env->map);
 	//env->map = rotation_y(env->map, env->len_x, env->len_y);
 	//env->map = rotation_z(env->map, env->len_x, env->len_y);
-	env->map = proj_iso(env->map, env->len_x, env->len_y);
+	pix = proj_iso(env, env->map);
 	//env->map = proj_con(env->map, env, env->len_x, env->len_y);
-	get_extreme(env);
-	scale(env);
+	get_extreme(env, pix);
+	//scale(env, env->map);
+	//scale(env, pix);
 	
 
 	//display_map(env->map, env);
 
-	draw_map(env);
+	draw_map(env, pix);
 	
-	draw_link(env);
-
+	draw_link(env, pix);
+	
 	print_all(env);
 
+	
 
 	mlx_key_hook(env->win, key_funct, &env->mlx);
 	mlx_mouse_hook(env->win, &mouse_funct, &env->mlx);

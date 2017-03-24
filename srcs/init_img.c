@@ -32,6 +32,8 @@ t_img		*init_img(t_env *env, int height, int width)
 void	fill_img(t_env *env, int *h, int *w)
 {
 	env->back_img->img = mlx_xpm_file_to_image(env->mlx, "images/magnifique.xpm", w, h);
+	env->church_img->img = mlx_xpm_file_to_image(env->mlx, "images/church.xpm", w, h);
 	env->sup_img->img = mlx_xpm_file_to_image(env->mlx, "images/blancdim.xpm", w, h);
+		
 }
 
