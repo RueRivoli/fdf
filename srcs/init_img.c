@@ -22,7 +22,6 @@ t_img		*init_img(t_env *env, int height, int width)
 		return (NULL);
 	
 	image->img = mlx_new_image(env->mlx, height, width);
-	
 	image->data = mlx_get_data_addr(image->img,\
 	 &image->bpp, &image->sizeline, &image->endian);
 	 

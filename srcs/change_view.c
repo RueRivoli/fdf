@@ -6,6 +6,13 @@ number 0 : translation to left
 number 1 : translation to down
 number 2 : translation to right
 number 3 : translation to up
+
+rotation 0 : rotation on x positive
+rotation 1 : rotation on x negative
+rotation 2 : rotation on y positive
+rotation 3 : rotation on y negative
+rotation 4 : rotation on z positive
+rotation 5 : rotation on z negative
 */
 
 void    trace(t_env *env, t_node **pix)
@@ -21,7 +28,6 @@ void    trace(t_env *env, t_node **pix)
 t_node     **choose(t_env *env)
 {
     t_node **pix;
-
     pix = NULL;
      if (env->type_proj == 0)
         pix = proj_iso(env, env->map);
@@ -30,10 +36,19 @@ t_node     **choose(t_env *env)
     return (pix);
 }
 
-void    to_other(t_env *env, int i)
+void    refresh(t_env *env)
 {
     t_node **pix;
 
+    pix = NULL;
+    pix = choose(env);
+    get_extreme(env, pix);
+    trace(env, pix);
+    free(pix);
+}
+
+void    to_other(t_env *env, int i)
+{
     if (i != env->type_proj)
     {
         env->type_proj = i;
@@ -41,33 +56,22 @@ void    to_other(t_env *env, int i)
         env->trans_x = 0;
         env->trans_y = 0;
         env->moove_z = 1.0;
-        pix = choose(env);
-        get_extreme(env, pix);
-        trace(env, pix);
-        free(pix);
+        env->rot_z = 0;
+        refresh(env);
     }
 }
 
 void   moove_z(t_env *env, int i)
 {
-    t_node **pix;
-    pix = NULL;
     if (i == 1)
         env->moove_z = env->moove_z *  COEFF_Z;
     else if (i == 0)
         env->moove_z = env->moove_z *  COEFF_ZD;
-    pix = choose(env);
-    get_extreme(env, pix);
-    trace(env, pix);
-    free(pix);
+    refresh(env);
 }
 
-int    translation(t_env *env, int number)
+void    translation(t_env *env, int number)
 {
-    t_node **pix;
-
-    if (number > 4 || number < 0)
-        return (-1);
     if (number == 0)
        env->trans_x--;
     else if (number == 2)
@@ -76,18 +80,29 @@ int    translation(t_env *env, int number)
        env->trans_y--;
     else if (number == 1)
       env->trans_y++;
-      
-    pix = choose(env);
-    get_extreme(env, pix);
-    trace(env, pix);
-    free(pix);
-    return (1);
+    else ;
+    refresh(env);
+}
+
+void    rotation(t_env *env, int i)
+{
+    if (i == 0)
+        env->rot_x++;
+    else if (i == 1)
+        env->rot_x--;
+    else if (i == 2)
+        env->rot_y++;
+    else if (i == 3)
+        env->rot_y--;
+    else if (i == 4)
+        env->rot_z++;
+    else if (i == 5)
+        env->rot_z--;
+    refresh(env);
 }
 
 void     reinitialise(t_env *env)
 {       
-        t_node **pix;
-        pix = NULL;
         env->min_x = SIZE_X;
 	    env->min_y = SIZE_Y;
 	    env->max_x = 0;
@@ -96,76 +111,17 @@ void     reinitialise(t_env *env)
         env->trans_y = 0;
         env->zoom = 1.0;
         env->moove_z = 1.0;
-        pix = choose(env);
-        get_extreme(env, pix);
-        scale(env, pix);
-        trace(env, pix);
-        free(pix);
+        refresh(env);
 }
 
 void    zoom(t_env *env)
 {
-    /*int x;
-	int y;
-    int a;
-    int b;
-
-	y = 0;
-	t_node **map;*/
-    t_node **pix;
-    pix = NULL;
     env->zoom = env->zoom * COEFF_ZOOM;
-    pix = choose(env);
-    get_extreme(env, pix);
-    /*map = env->map;*/	
-	/*while (y < env->len_y)
-	{
-		x = 0;
-		while (x < env->len_x)
-		{
-            a = COEFF_ZOOM * env->map[y][x].x;
-            b = COEFF_ZOOM * env->map[y][x].y;
-            env->map[y][x].x = (int)a;
-            env->map[y][x].y = (int)b;
-            env->map[y][x].x = (int) (env->map[y][x].x + COEFF_ZOOM * (env->map[y][x].x - (a - ORIGIN_GRAPH_X)));
-            env->map[y][x].y = (int) (env->map[y][x].y + COEFF_ZOOM * (env->map[y][x].y - (b - ORIGIN_GRAPH_Y))); 
-			x++; 
-		}
-		y++;
-	}*/
-        trace(env, pix);
-        free(pix);
+    refresh(env);
 }
 
 void    dezoom(t_env *env)
 {
-  /* int x;
-	int y;
-    int a;
-    int b;
-	y = 0;*/
-	t_node **pix;
-    pix = NULL;
-    /*map = env->map;*/
     env->zoom = env->zoom / COEFF_ZOOM;
-    pix = choose(env);
-    get_extreme(env, pix);
-/*	while (y < env->len_y)
-	{
-		x = 0;
-		while (x < env->len_x)
-		{
-            a = COEFF_DEZOOM * env->map[y][x].x;
-            b = COEFF_DEZOOM * env->map[y][x].y;
-            env->map[y][x].x = (int)a;
-            env->map[y][x].y = (int)b;
-            env->map[y][x].x = (int) (env->map[y][x].x - COEFF_ZOOM * (env->map[y][x].x - (a - ORIGIN_GRAPH_X)));
-            env->map[y][x].y = (int) (env->map[y][x].y - COEFF_ZOOM * (env->map[y][x].y - (b - ORIGIN_GRAPH_Y)));
-			x++; 
-		}
-		y++;
-	}
-    */
-        trace(env, pix);
-        free(pix);
+    refresh(env);
 }

@@ -15,7 +15,7 @@
 
 void	error_no_conform(void)
 {
-	ft_putstr("Le fichier n'est pas conforme \n");
+	ft_putstr("Le fichier n'est pas conforme\n");
 }
 
 void	error_no_file(void)
@@ -73,32 +73,29 @@ int		main(int argc, char **argv)
 		error_no_conform();
 		return (0);
 	}
-	ft_putstr("Point");
 	rescale(env, env->map);
 	//env->map = rotation_y(env->map, env->len_x, env->len_y);
 	//env->map = rotation_z(env->map, env->len_x, env->len_y);
 	pix = proj_iso(env, env->map);
 	//env->map = proj_con(env->map, env, env->len_x, env->len_y);
-	get_extreme(env, pix);
-	//scale(env, env->map);
+	//get_extreme(env, pix);
+	get_extreme(env, env->map);
 	//scale(env, pix);
+	//env->scale(env, pix);
 	
 
 	//display_map(env->map, env);
 
 	draw_map(env, pix);
-	
 	draw_link(env, pix);
-	
 	print_all(env);
 
-	
 
 	mlx_key_hook(env->win, key_funct, &env->mlx);
 	mlx_mouse_hook(env->win, &mouse_funct, &env->mlx);
 	mlx_expose_hook(env->win, &print_title, &env->mlx);
-	
 	mlx_loop(env->mlx);
+
 	free(env->map);
 	free(env->img);
 	free(env);

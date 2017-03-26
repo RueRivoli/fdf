@@ -24,7 +24,7 @@ t_node		*new_node()
 	node->y = 0;
 	node->z = 0;
 	node->color = 0;
-		return (node);
+	return (node);
 }
 
 t_node		*init_node(int x0, int y0, int z0, int color0)
@@ -66,15 +66,9 @@ void		display_map(t_node **map, t_env *env)
 		while (x < env->len_x)
 		{		
 			ft_putnbr(map[y][x].x);
-			// if (map[i][j].color != -1)
-			// {
-			 	ft_putchar(',');
-			// 	ft_putnbr(map[i][j].color);
-			// }
+			ft_putchar(',');
 			ft_putnbr(map[y][x].y);
 			ft_putchar(' ');
-			//ft_putnbr(map[y][x].x);
-			//ft_putchar(' ');
 			x++;
 		}
 		ft_putchar('\n');

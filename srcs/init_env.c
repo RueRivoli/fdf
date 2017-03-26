@@ -14,12 +14,9 @@
 #include "define.h"
 #include "fdf.h"
 
-t_env		*new_env()
+
+void	new_one(t_env *env)
 {
-	t_env *env;
-	
-	if (!(env = (t_env*)malloc(sizeof(t_env))))
-		return (NULL);
 	env->mlx = NULL;
 	env->win = NULL;
 	env->img = NULL;
@@ -34,14 +31,32 @@ t_env		*new_env()
 	env->max_y = 0;
 	env->min_z = 0;
 	env->max_z = 0;
+
+}
+
+void	new_two(t_env *env)
+{
 	env->x = 0;
 	env->y = 0;
 	env->zoom = 1.0;
 	env->trans_x = 0;
 	env->trans_y = 0;
 	env->moove_z = 1.0;
+	env->rot_x = 0;
+	env->rot_y = 0;
+	env->rot_z = 0;
 	env->filename = "";
 	env->type_proj = 0;
+}
+
+t_env		*new_env()
+{
+	t_env *env;
+	
+	if (!(env = (t_env*)malloc(sizeof(t_env))))
+		return (NULL);
+	new_one(env);
+	new_two(env);
 	return (env);
 }
 
@@ -62,18 +77,8 @@ t_env	*init_env(int fd, char *av1)
 	env->img = init_img(env, FENE_X, FENE_Y);
 	env->back_img = init_img(env, SIZE_X, SIZE_Y);
 	env->sup_img = init_img(env, SUPP_X, SUPP_Y);
-	env->church_img = init_img(env, 271, 271);
+	env->church_img = init_img(env, CHURCH, CHURCH);
 	env->filename = get_file_name(av1);
 	fill_img(env, &h, &w);
-	/*ft_putstr("Data :");
-	ft_putstr((env->img)->data);
-	ft_putstr(" Bpp :");
-	ft_putnbr((env->img)->bpp);
-	ft_putstr(" Sizeline :");
-	ft_putnbr((env->img)->sizeline);
-	ft_putstr(" Endian :");
-	ft_putnbr(env->img->endian);*/
-	
-	
 	return (env);
 }
