@@ -22,13 +22,14 @@
 # define SIZE_X 1920
 # define SIZE_Y 1080
 # define PI 3.14
-# define THETA 40 * PI / 180   
+# define THETA 7 * PI / 180   
 # define FENE_X 1200
 # define FENE_Y 900
 # define BACK_X 1024
 # define BACK_Y 850
 # define SUPP_X 1240
 # define SUPP_Y 940
+# define CHURCH 217
 
 # define COLOR_HIGH_ALT 10764449
 # define COLOR_RISE 10784064
@@ -69,6 +70,12 @@
 # define TOUCH_LESS 78
 # define TOUCH_P 35
 # define TOUCH_I 34
+# define TOUCH_R 15
+# define TOUCH_T 17
+# define TOUCH_Z 13
+# define TOUCH_E 14
+# define TOUCH_S 1
+# define TOUCH_D 2
 
 /*
 *button of mouse

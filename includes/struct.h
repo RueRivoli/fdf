@@ -42,6 +42,9 @@ typedef struct s_env
 	int		trans_x;
 	int		trans_y;
 	float	moove_z;
+	int 	rot_x;
+	int 	rot_y;
+	int 	rot_z;
 	int		type_proj;
 	char *filename;
 

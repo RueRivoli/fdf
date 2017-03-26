@@ -60,7 +60,6 @@ t_node  **proj_iso(t_env *env, t_node **map)
         j++;
     }
     return (new);
-    ft_putstr("feirje");
 }
 
 t_node  **proj_para(t_env *env, t_node **map)

@@ -15,13 +15,16 @@
 * change_view.c
 */
 void    trace(t_env *env, t_node **pix);
-int    translation(t_env *env, int number);
+void    translation(t_env *env, int number);
 void    reinitialise(t_env *env);
+void    refresh(t_env *env);
 void    zoom(t_env *env);
 void    dezoom(t_env *env);
 t_node  **choose(t_env *env);
 void   moove_z(t_env *env, int i);
 void    to_other(t_env *env, int i);
+void    rotation(t_env *env, int i);
+t_node  **rotation_z(t_node **map, int len_x, int len_y);
 
 
 /*
@@ -36,6 +39,20 @@ void    draw_high_rise(t_env *env, t_node *node1, t_node *node2, int color);
 void    draw_segment(t_env *env, t_node *node1, t_node *node2);
 void    draw_link(t_env *env, t_node **map);
 
+
+/*
+* error.c
+*/
+void	error_no_conform(void);
+void	error_no_file(void);
+
+/*
+* event_funct.c
+*/
+int     mouse_funct(int button, int x, int y, t_env *env);
+int     key_funct(int keycode, t_env *env);
+
+
 /*
 * getmap.c
 */
@@ -47,6 +64,8 @@ t_node		**get_map(int fd, t_env *env);
 /*
 * init_env.c
 */
+void	new_one(t_env *env);
+void	new_two(t_env *env);
 t_env	*new_env();
 t_env	*init_env(int fd, char *av1);
 
@@ -68,15 +87,11 @@ void	display_node(t_node *node);
 /*
 * main.c
 */
-void    error_no_conform();
-void	error_no_file();
-char    *get_file_name(char *av1);
 
-/*
-* mouse_funct.c
-*/
-int     mouse_funct(int button, int x, int y, t_env *env);
-int     key_funct(int keycode, t_env *env);
+t_env	*handle_error(int argc, char **argv);
+char    *get_file_name(char *av1);
+void    ft_hook(t_env *env);
+
 
 /*
 * print_string.c
@@ -88,17 +103,15 @@ void     print_image_supp(t_env *env);
 void     print_image_graph(t_env *env);
 void     print_all(t_env *env);
 void    print_image_sign(t_env *env);
+
 /*
-* rotation.c
+* projection.c
 */
 t_node  **proj_para(t_env *env, t_node **map);
 t_node  **proj_iso(t_env *env, t_node **map);
 t_node **rotation_y(t_node **map, int len_x, int len_y);
-t_node  **rotation_z(t_node **map, int len_x, int len_y);
 
 
-
-t_node	*insert_node(t_node *node, t_node *new);
 
 
 

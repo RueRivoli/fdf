@@ -121,9 +121,12 @@ static t_node		**convert_map(char **split, t_node **map)
 		else
 		{
 			sp = ft_strsplit(split[x], ',');
-			if (ft_isnumber(sp[0]) == 0 || get_color(sp[1]) == -1)
+			if (ft_isnumber(sp[0]) == 0)
 				return (NULL);
-			new = init_node(x, y, ft_atoi(sp[0]), get_color(sp[1]));
+			else if (get_color(sp[1]) == -1)
+				new = init_node(x, y, ft_atoi(sp[0]), 16777215);
+			else
+				new = init_node(x, y, ft_atoi(sp[0]), get_color(sp[1]));
 		}
 		map[y][x] = *new;
 		x++;
@@ -165,8 +168,10 @@ t_node		**get_map(int fd, t_env *env)
 	{
 		map = (t_node**)ft_realloc((void*)map,sizeof(t_node*) * (count + 1), sizeof(t_node*) * count);
 		split = ft_strsplit(line, ' ');
-		if (ft_splitlen(split) != length)
+		/*if (ft_splitlen(split) != length)
+		{
 			return (NULL);
+		}*/
 		if (!(map = convert_map(split, map)))
 			return (NULL);
 		count++;
