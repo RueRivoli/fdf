@@ -56,7 +56,7 @@ void		display_map(t_node **map, t_env *env)
 {
 	int x;
 	int y;
-
+	ft_putstr("fre");
 	y = 0;
 	if (!map)
 		ft_putstr("Erreur dans la map");
@@ -65,10 +65,10 @@ void		display_map(t_node **map, t_env *env)
 		 x = 0;
 		while (x < env->len_x)
 		{		
-			ft_putnbr(map[y][x].x);
+			ft_putnbr(map[y][x].z);
 			ft_putchar(',');
-			ft_putnbr(map[y][x].y);
-			ft_putchar(' ');
+			//ft_putnbr(map[y][x].y);
+			//ft_putchar(' ');
 			x++;
 		}
 		ft_putchar('\n');

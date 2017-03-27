@@ -21,7 +21,8 @@ void    draw_map(t_env *env, t_node **map)
     {
         x = 0;
         while (x < env->len_x)
-        {        
+        {   
+            //ft_putnbr(map[y][x].z);
             mlx_put_pixel_to_image(env,&map[y][x]);
             x++;
         }
@@ -34,35 +35,29 @@ void    draw_vertical(t_env *env, t_node *node1, t_node *node2, int color)
 {
     int y;
     int x;
+    int z;
     t_node *new;
-
     x = node1->x;
     if (node1->y < node2->y)
     { 
         y = node1->y + 1;
         while (y < node2->y)
         {
-            new = init_node(x, y, 0, color);
+            z = node1->z + (y - node1->y) * (node2->z - node1->z) / (node2->y - node1->y);
+            new = init_node(x, y, (int)z, color);
             mlx_put_pixel_to_image(env, new);
             y++;
         }
     }
-    else if (node2->y < node1->y)
-    {
-         y = node2->y + 1;
-        while (y < node1->y)
-        {
-            new = init_node(x, y, 0, color);
-            mlx_put_pixel_to_image(env, new);
-            y++;
-        }
-    }
+    else
+         draw_vertical(env, node2, node1, color);
 }
 
 void    draw_horizontal(t_env *env, t_node *node1, t_node *node2, int color)
 {
-    int y;
     int x;
+    int y;
+    int z;
     t_node *new;
     
     y = node1->y;
@@ -71,27 +66,21 @@ void    draw_horizontal(t_env *env, t_node *node1, t_node *node2, int color)
         x = node1->x + 1;
         while (x < node2->x)
         {
-            new = init_node(x, y, 0, color);
+            z = node1->z + (x - node1->x) * (node2->z - node1->z) / (node2->x - node1->x);
+            new = init_node(x, y, (int)z, color);
             mlx_put_pixel_to_image(env, new);
             x++;
         }
     }
-    else if (node2->x < node1->x)
-    {
-         x = node2->x + 1;
-        while (x < node1->x)
-        {
-            new = init_node(x, y, 0, color);
-            mlx_put_pixel_to_image(env, new);
-            x++;
-        }
-    }
+    else
+        draw_horizontal(env, node2, node1, color);
 }
 
 void    draw_soft_rise(t_env *env, t_node *node1, t_node *node2, int color)
 {
         int x;
         int y_new;
+        int z;
         t_node *new;
         if (node2->x < node1->x)
             draw_soft_rise(env, node2, node1, color);
@@ -100,7 +89,8 @@ void    draw_soft_rise(t_env *env, t_node *node1, t_node *node2, int color)
               while (x < node2->x)
              {
                   y_new = node1->y + ((node2->y - node1->y) * (x - node1->x) / (node2->x - node1->x));
-                 new = init_node(x, y_new, 0, color);
+                  z = node1->z + sqrt(pow(x - node1->x, 2) + pow(y_new - node1->y, 2)) * (node2->z - node1->z) / sqrt(pow(node2->x - node1->x, 2) +  pow(node2->y - node1->y, 2));
+                 new = init_node(x, y_new, (int)z, color);
                  mlx_put_pixel_to_image(env, new);
                  x++;
              }
@@ -109,8 +99,10 @@ void    draw_soft_rise(t_env *env, t_node *node1, t_node *node2, int color)
 
 void    draw_high_rise(t_env *env, t_node *node1, t_node *node2, int color)
 {
-        int y;
         int x_new;
+        int y;
+        int z;
+
         t_node *new;
         if (node2->y < node1->y)
             draw_soft_rise(env, node2, node1, color);
@@ -119,7 +111,8 @@ void    draw_high_rise(t_env *env, t_node *node1, t_node *node2, int color)
               while (y < node2->y)
              {
                 x_new = node1->x + ((node2->x - node1->x) * (y - node1->y) / (node2->y - node1->y));
-                 new = init_node(x_new, y, 0, color);
+                z = node1->z + sqrt(pow(x_new - node1->x, 2) + pow(y - node1->y, 2)) * (node2->z - node1->z) / sqrt(pow(node2->x - node1->x, 2) +  pow(node2->y - node1->y, 2));
+                 new = init_node(x_new, y, (int)z, color);
                  mlx_put_pixel_to_image(env, new);
                  y++;
              }

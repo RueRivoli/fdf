@@ -67,18 +67,18 @@ int		main(int argc, char **argv)
 	t_node **pix;
 	t_env *env;
 
-	if (! (env = handle_error(argc, argv)))
+	if (!(env = handle_error(argc, argv)))
 		return (0);
-
+	
+	//ft_putstr("champion");
 	rescale(env, env->map);
+	//env->map = proj_iso(env, env->map);
 	pix = proj_iso(env, env->map);
-	//get_extreme(env, pix);
-	get_extreme(env, env->map);
-	//scale(env, pix);
-	//env->scale(env, pix);
+	get_extreme(env, pix);
+	scale(env, pix);
 	
 
-	//display_map(env->map, env);
+	//display_map(pix, env);
 
 	draw_map(env, pix);
 	draw_link(env, pix);

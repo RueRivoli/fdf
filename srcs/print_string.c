@@ -9,8 +9,8 @@ int    print_title(t_env *env)
     mlx_string_put(env->mlx, env->win, 1000, 30, 0x3A5FCD, env->filename);
     mlx_string_put(env->mlx, env->win, 50, 300, 0x3A5FCD, "Current x : ");
     mlx_string_put(env->mlx, env->win, 50, 360, 0x3A5FCD, "Current y : ");
-    mlx_string_put(env->mlx, env->win, 40, 600, 0x0F9F8C, " Success consists of going");
-     mlx_string_put(env->mlx, env->win, 40, 650, 0x0F9F8C, "from failure to failure");
+    mlx_string_put(env->mlx, env->win, 40, 600, 0x0F9F8C, " \" Success consists of going");
+     mlx_string_put(env->mlx, env->win, 40, 650, 0x0F9F8C, "from failure to failure \"");
     mlx_string_put(env->mlx, env->win, 40, 700, 0x0F9F8C, "without loss of enthusiasm ");
     mlx_string_put(env->mlx, env->win, 30, 1030, 0x3A5FCD, "http://github.com/RueRivoli");
 

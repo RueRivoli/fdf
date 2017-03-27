@@ -33,7 +33,7 @@
 
 # define COLOR_HIGH_ALT 10764449
 # define COLOR_RISE 10784064
-# define COLOR_Z_0 16777215
+
 # define HEIGHT_DRAW 800
 # define WIDTH_DRAW 600
 
@@ -84,6 +84,17 @@
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 # define SCROLL_BIS 7
+
+# define COLOR_Z_0 16777215
+# define COLOR_Z_1 16764108
+# define COLOR_Z_2 16757683
+# define COLOR_Z_3 16750937
+# define COLOR_Z_4 16744576
+# define COLOR_Z_5 16737894
+# define COLOR_Z_6 16731469
+# define COLOR_Z_7 16724787
+# define COLOR_Z_8 16718362
+# define COLOR_Z_9 16711680
 
 
 #endif

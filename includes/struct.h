@@ -19,6 +19,16 @@ typedef struct s_node
 	int		color;
 }		t_node;
 
+typedef struct s_mat
+{
+	int x;
+    int y;
+    int z;
+    int a;
+    int b;
+	int c;
+}				t_mat;
+
 typedef struct s_env
 {
 	void	*mlx;
@@ -46,7 +56,8 @@ typedef struct s_env
 	int 	rot_y;
 	int 	rot_z;
 	int		type_proj;
-	char *filename;
+	char	*filename;
+	t_mat	mat;
 
 }			t_env;
 

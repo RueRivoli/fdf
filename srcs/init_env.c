@@ -47,6 +47,12 @@ void	new_two(t_env *env)
 	env->rot_z = 0;
 	env->filename = "";
 	env->type_proj = 0;
+	env->mat.x = 0;
+	env->mat.y = 0;
+	env->mat.z = 0;
+	env->mat.a = 0;
+	env->mat.b = 0;
+	env->mat.c = 0;
 }
 
 t_env		*new_env()

@@ -72,6 +72,7 @@ t_env	*init_env(int fd, char *av1);
 /*
 * init_img.c
 */
+int 	set_color(t_env *env, t_node *node);
 void    mlx_put_pixel_to_image(t_env *env, t_node *node);
 t_img	*init_img(t_env *env, int height, int width);
 void	fill_img(t_env *env, int *h, int *w);
@@ -110,6 +111,7 @@ void    print_image_sign(t_env *env);
 t_node  **proj_para(t_env *env, t_node **map);
 t_node  **proj_iso(t_env *env, t_node **map);
 t_node **rotation_y(t_node **map, int len_x, int len_y);
+void    transform(t_env *env, t_node **map, t_node **new, int j);
 
 
 
