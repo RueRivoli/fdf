@@ -64,28 +64,29 @@ void	ft_hook(t_env *env)
 
 int		main(int argc, char **argv)
 {
-	t_node **pix;
+	//t_node **pix;
 	t_env *env;
 
+	//pix = NULL;
 	if (!(env = handle_error(argc, argv)))
 		return (0);
 	
 	//ft_putstr("champion");
 	rescale(env, env->map);
 	//env->map = proj_iso(env, env->map);
-	pix = proj_iso(env, env->map);
-	get_extreme(env, pix);
-	scale(env, pix);
+	//pix = proj_iso(env, env->map);
+	//get_extreme(env, env->map);
+	//scale(env, env->map);
 	
 
 	//display_map(pix, env);
 
-	draw_map(env, pix);
-	draw_link(env, pix);
+	draw_map(env, env->map);
+	//draw_link(env, env->map);
 	print_all(env);
 
 	ft_hook(env);
-	free(pix);
+	//free(pix);
 	free(env);
 	free(env->map);
 	free(env->img);

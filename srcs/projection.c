@@ -25,7 +25,7 @@ void    transform(t_env *env, t_node **map, t_node **new, int j)
     {
             mat.z = map[j][i].z * env->moove_z;
             mat.x = CTE1 * map[j][i].x - CTE2 * map[j][i].y;
-            mat.y = - 2 * mat.z + (CTE1/2) * map[j][i].x + (CTE2/2) * map[j][i].y;
+            mat.y = -2 * mat.z + (CTE1/2) * map[j][i].x + (CTE2/2) * map[j][i].y;
 
             mat.c = mat.x;
             mat.x = env->zoom * mat.x + 15 * env->trans_x;

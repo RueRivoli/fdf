@@ -23,6 +23,8 @@ void    draw_map(t_env *env, t_node **map)
         while (x < env->len_x)
         {   
             //ft_putnbr(map[y][x].z);
+
+            
             mlx_put_pixel_to_image(env,&map[y][x]);
             x++;
         }
