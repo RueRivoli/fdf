@@ -26,8 +26,8 @@ void    which_proj(t_env *env, t_mat *mat, t_node *node)
         else if (env->type_proj == 1)
         {
              mat->z = node->z * env->moove_z;
-            mat->x = node->x - CTE * node->z;
-            mat->y = node->y + (CTE/2) * node->z;
+            mat->x = node->x - CTE * mat->z;
+            mat->y = node->y + (CTE/2) * mat->z;
         }
 }
 
@@ -185,7 +185,7 @@ void    draw_segment(t_env *env, t_node *node1, t_node *node2)
 {
     int color;
 
-    color = right_color(node1, node2);
+    color = node2->color;/*right_color(node1, node2);*/
     if (node1->x == node2->x && node1->y != node2->y)
         draw_vertical(env, node1, node2, color);
     else if (node1->y == node2->y && node1->x != node2->x)
