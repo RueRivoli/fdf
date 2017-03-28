@@ -25,8 +25,8 @@ int     key_funct(int keycode, t_env *env)
         translation(env, 2);
     else if (keycode == ARROW_UP)
         translation(env, 3);
-    /*else if (keycode == TOUCH_O)
-        reinitialise(env);*/
+    else if (keycode == TOUCH_O)
+        reinitialise(env);
     else if (keycode == TOUCH_PLUS)
         moove_z(env, 1);
     else if (keycode == TOUCH_LESS)

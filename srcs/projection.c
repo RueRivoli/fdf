@@ -25,22 +25,24 @@ void    transform(t_env *env, t_node **map, t_node **new, int j)
     {
             mat.z = map[j][i].z * env->moove_z;
             mat.x = CTE1 * map[j][i].x - CTE2 * map[j][i].y;
-            mat.y = -2 * mat.z + (CTE1/2) * map[j][i].x + (CTE2/2) * map[j][i].y;
+            mat.y = -2 * mat.z + (CTE1/2) * map[j][i].x + (CTE2/2) * map[j][i].y; //proj
 
             mat.c = mat.x;
             mat.x = env->zoom * mat.x + 15 * env->trans_x;
             mat.y = env->zoom * mat.y + 15 * env->trans_y;
-            mat.z = mat.z * env->zoom;
+            mat.z = mat.z * env->zoom;//trans et zoom
+
             mat.x = mat.x * cos(THETA * env->rot_z) + mat.y * sin(THETA * env->rot_z);
-            mat.y =  - mat.c * sin(THETA * env->rot_z) + mat.y * cos(THETA * env->rot_z);
+            mat.y =  - mat.c * sin(THETA * env->rot_z) + mat.y * cos(THETA * env->rot_z);//rot z
 
             mat.a = mat.y;
             mat.y =  mat.y * cos(THETA * env->rot_x) + mat.z * sin(THETA * env->rot_x);
-            mat.z =  - mat.a * sin(THETA * env->rot_x) + mat.z * cos(THETA * env->rot_x);
+            mat.z =  - mat.a * sin(THETA * env->rot_x) + mat.z * cos(THETA * env->rot_x);//rot x
             mat.b = mat.z;
 
             mat.z =  mat.z * cos(THETA * env->rot_y) - mat.x * sin(THETA * env->rot_y);
-            mat.x = - mat.b * sin(THETA * env->rot_y) + mat.x * cos(THETA * env->rot_y);
+            mat.x = - mat.b * sin(THETA * env->rot_y) + mat.x * cos(THETA * env->rot_y);//rot y
+            
             add = init_node((int)mat.x, (int)mat.y, (int)mat.z , map[j][i].color);
             new[j][i] = *add;
             i++;

@@ -56,6 +56,7 @@ typedef struct s_env
 	int 	rot_y;
 	int 	rot_z;
 	int		type_proj;
+	int		bool_color;
 	char	*filename;
 	t_mat	mat;
 

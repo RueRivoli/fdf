@@ -38,7 +38,10 @@ void    mlx_put_pixel_to_image(t_env *env, t_node *node)
     int octet;
 	int color_new;
     octet = env->img->bpp / 8;
-	color_new = set_color(env, node);
+	if (env->bool_color == 0)
+		color_new = set_color(env, node);
+	else
+		color_new = node->color;
     if (node->x >= 0 && node->y >= 0 && node->x < FENE_X && node->y < FENE_Y)
     {
 		/*&(node->color)*/

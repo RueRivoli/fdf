@@ -15,36 +15,16 @@ rotation 4 : rotation on z positive
 rotation 5 : rotation on z negative
 */
 
-void    trace(t_env *env, t_node **pix)
+
+void    refresh(t_env *env)
 {
     mlx_destroy_image(env->mlx, env->img);
     env->img = NULL;
     env->img = init_img(env, FENE_X, FENE_Y);
-	draw_map(env, pix);
-	draw_link(env, pix);
-    print_image_graph(env);
-}
-
-t_node     **choose(t_env *env)
-{
-    t_node **pix;
-    pix = NULL;
-     if (env->type_proj == 0)
-        pix = proj_iso(env, env->map);
-    else if (env->type_proj == 1)
-         pix = proj_para(env, env->map);
-    return (pix);
-}
-
-void    refresh(t_env *env)
-{
-    t_node **pix;
-
-    pix = NULL;
-    pix = choose(env);
-    get_extreme(env, pix);
-    trace(env, pix);
-    free(pix);
+    //get_extreme(env, env->map);
+    draw_map(env, env->map);
+    //draw_link(env, env->map);
+   print_image_graph(env);
 }
 
 void    to_other(t_env *env, int i)

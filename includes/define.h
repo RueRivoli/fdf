@@ -75,7 +75,7 @@
 # define TOUCH_Z 13
 # define TOUCH_E 14
 # define TOUCH_S 1
-# define TOUCH_D 2
+# define TOUCH_D 2 
 
 /*
 *button of mouse

@@ -92,7 +92,7 @@ void				rescale(t_env *env, t_node **map)
 	}
 }
 
-static t_node		**convert_map(char **split, t_node **map)
+static t_node		**convert_map(char **split, t_node **map, int *bool_color)
 {
 	int len;
 	static int y;
@@ -120,6 +120,7 @@ static t_node		**convert_map(char **split, t_node **map)
 		}
 		else
 		{
+			*bool_color = 1;
 			sp = ft_strsplit(split[x], ',');
 			if (ft_isnumber(sp[0]) == 0)
 				return (NULL);
@@ -156,7 +157,7 @@ t_node		**get_map(int fd, t_env *env)
 	{
 		split = ft_strsplit(line,' ');	
 		length = ft_splitlen(split);
-		if (!(map = convert_map(split, map)))
+		if (!(map = convert_map(split, map, &env->bool_color)))
 			return (NULL);
 	}
 	else
@@ -172,7 +173,7 @@ t_node		**get_map(int fd, t_env *env)
 		{
 			return (NULL);
 		}*/
-		if (!(map = convert_map(split, map)))
+		if (!(map = convert_map(split, map, &env->bool_color)))
 			return (NULL);
 		count++;
 	}

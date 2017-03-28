@@ -11,24 +11,75 @@ int    right_color(t_node *node1, t_node *node2)
         return (COLOR_Z_0);
 }
 
+void    which_proj(t_env *env, t_mat *mat, t_node *node)
+{
+        if (env->type_proj == 0)
+        {
+            mat->z = node->z * env->moove_z;
+            mat->x = CTE1 * node->x - CTE2 * node->y;
+            mat->y = -2 * mat->z + (CTE1/2) * node->x + (CTE2/2) * node->y; //proj
+            if (env->type_proj == 0){
+             mat->x += 540;
+             mat->y += 140;   
+            }
+        }
+        else if (env->type_proj == 1)
+        {
+             mat->z = node->z * env->moove_z;
+            mat->x = node->x - CTE * node->z;
+            mat->y = node->y + (CTE/2) * node->z;
+        }
+}
+
+
+t_node *new_coord(t_env *env, t_node *node)
+{
+        t_mat mat;
+        
+            which_proj(env, &mat, node);
+            mat.c = mat.x;
+            mat.x = env->zoom * mat.x + 15 * env->trans_x;
+            mat.y = env->zoom * mat.y + 15 * env->trans_y;
+            mat.z = mat.z * env->zoom;//trans et zoom
+
+            mat.x = mat.x * cos(THETA * env->rot_z) + mat.y * sin(THETA * env->rot_z);
+            mat.y =  - mat.c * sin(THETA * env->rot_z) + mat.y * cos(THETA * env->rot_z);//rot z
+
+            mat.a = mat.y;
+            mat.y =  mat.y * cos(THETA * env->rot_x) + mat.z * sin(THETA * env->rot_x);
+            mat.z =  - mat.a * sin(THETA * env->rot_x) + mat.z * cos(THETA * env->rot_x);//rot x
+            mat.b = mat.z;
+
+            mat.z =  mat.z * cos(THETA * env->rot_y) - mat.x * sin(THETA * env->rot_y);
+            mat.x = - mat.b * sin(THETA * env->rot_y) + mat.x * cos(THETA * env->rot_y);//rot y
+        
+        return (init_node((int)mat.x, (int)mat.y, (int)mat.z , node->color));
+}
+
 void    draw_map(t_env *env, t_node **map)
 {
     int y;
     int x;
-
+    t_node *new;
+    
     y = 0;
+    get_extreme(env, env->map);
     while (y < env->len_y)
     {
         x = 0;
         while (x < env->len_x)
         {   
-            //ft_putnbr(map[y][x].z);
-
+            new = NULL;
+            new = new_coord(env, &map[y][x]);
             
-            mlx_put_pixel_to_image(env,&map[y][x]);
+            if (x != env->len_x - 1)                
+                draw_segment(env, new, new_coord(env, &map[y][x + 1]));
+            if (y != env->len_y - 1)            
+                draw_segment(env, new, new_coord(env, &map[y + 1][x]));
+            mlx_put_pixel_to_image(env, new);
+            free(new);
             x++;
         }
-        //ft_putchar('\n');
         y++;
     }
 }
@@ -38,16 +89,25 @@ void    draw_vertical(t_env *env, t_node *node1, t_node *node2, int color)
     int y;
     int x;
     int z;
-    t_node *new;
+    // t_node *new;
+    t_node new2;
+
     x = node1->x;
+    
     if (node1->y < node2->y)
     { 
         y = node1->y + 1;
         while (y < node2->y)
-        {
+        {   
+            // new = NULL;
             z = node1->z + (y - node1->y) * (node2->z - node1->z) / (node2->y - node1->y);
-            new = init_node(x, y, (int)z, color);
-            mlx_put_pixel_to_image(env, new);
+            // new = init_node(x, y, (int)z, color);
+            new2.x = x;
+            new2.y = y;
+            new2.z = (int)z;
+            new2.color = color;
+            mlx_put_pixel_to_image(env, &new2);
+            // free(new);
             y++;
         }
     }
@@ -126,13 +186,13 @@ void    draw_segment(t_env *env, t_node *node1, t_node *node2)
     int color;
 
     color = right_color(node1, node2);
-    if (node1->x == node2->x)
+    if (node1->x == node2->x && node1->y != node2->y)
         draw_vertical(env, node1, node2, color);
-    else if (node1->y == node2->y)
+    else if (node1->y == node2->y && node1->x != node2->x)
         draw_horizontal(env, node1, node2, color);
-    else if (abs((node2->y - node1->y)/(node2->x - node1->x)) < 1) 
+    else if (node1->x != node2->x && abs((node2->y - node1->y)/(node2->x - node1->x)) < 1) 
         draw_soft_rise(env, node1, node2, color);
-    else
+    else if (node1->y != node2->y)
         draw_high_rise(env, node1, node2, color);
 }
      

@@ -78,7 +78,8 @@ int		main(int argc, char **argv)
 	//get_extreme(env, env->map);
 	//scale(env, env->map);
 	
-
+	ft_putnbr(env->bool_color);
+	
 	//display_map(pix, env);
 
 	draw_map(env, env->map);

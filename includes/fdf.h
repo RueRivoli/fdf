@@ -14,13 +14,13 @@
 /*
 * change_view.c
 */
-void    trace(t_env *env, t_node **pix);
+void    trace(t_env *env);
 void    translation(t_env *env, int number);
 void    reinitialise(t_env *env);
 void    refresh(t_env *env);
 void    zoom(t_env *env);
 void    dezoom(t_env *env);
-t_node  **choose(t_env *env);
+void    choose(t_env *env);
 void   moove_z(t_env *env, int i);
 void    to_other(t_env *env, int i);
 void    rotation(t_env *env, int i);
@@ -38,6 +38,7 @@ void    draw_soft_rise(t_env *env, t_node *node1, t_node *node2, int color);
 void    draw_high_rise(t_env *env, t_node *node1, t_node *node2, int color);
 void    draw_segment(t_env *env, t_node *node1, t_node *node2);
 void    draw_link(t_env *env, t_node **map);
+t_node *new_coord(t_env *env, t_node *node);
 
 
 /*
