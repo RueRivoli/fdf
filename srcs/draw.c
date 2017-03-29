@@ -33,7 +33,7 @@ void    which_proj(t_env *env, t_mat *mat, t_node *node)
 
 char     *altitude_color(t_env *env, t_node *node)
 {
-    int delta;
+    //int delta;
     int r;
     int g;
     int b;
@@ -43,16 +43,17 @@ char     *altitude_color(t_env *env, t_node *node)
     char *str;
     char *hex;
 
+    (void)env;
     if (!(str = ft_strnew(8)))
         return (NULL);
-    delta = (node->z - env->min_z) / (env->max_z - env->min_z);
+    /*delta = (node->z - env->min_z) / (env->max_z - env->min_z);*/
     r = ft_hextoint(ft_strsub("0xFFFFFF", 2, 2)) - ft_hextoint(ft_strsub("0xFF0000", 2, 2));
     g = ft_hextoint(ft_strsub("0xFFFFFF", 4, 2)) - ft_hextoint(ft_strsub("0xFF0000", 4, 2));
     b = ft_hextoint(ft_strsub("0xFFFFFF", 6, 2)) - ft_hextoint(ft_strsub("0xFF0000", 6, 2));
 
-    rn = ft_hextoint(ft_strsub("0xFF0000", 2, 2)) + (delta) * r;
-    gn = ft_hextoint(ft_strsub("0xFF0000", 4, 2)) + (delta) * g;
-    bn = ft_hextoint(ft_strsub("0xFF0000", 6, 2)) + (delta) * b;
+    rn = ft_hextoint(ft_strsub("0xFF0000", 2, 2)) + node->rap * r;
+    gn = ft_hextoint(ft_strsub("0xFF0000", 4, 2)) + node->rap * g;
+    bn = ft_hextoint(ft_strsub("0xFF0000", 6, 2)) + node->rap * b;
     hex = ft_itohex(rn);
     str[0] = '0';
     str[1] = 'x';
@@ -65,6 +66,11 @@ char     *altitude_color(t_env *env, t_node *node)
     str[6] = hex[0];
     str[7] = hex[1];
     return (str);
+}
+
+float   proportion_altitude(t_env *env, t_node *node)
+{
+    return ((node->z - env->min_z) / (env->max_z - env->min_z));
 }
 
 char     *progressive_color(t_node *node1, t_node *node2, int i)
@@ -141,12 +147,19 @@ void    draw_map(t_env *env, t_node **map)
         while (x < env->len_x)
         {   
             new = NULL;
+            map[y][x].rap = proportion_altitude(env, &map[y][x]);
             new = new_coord(env, &map[y][x]);
             
-            if (x != env->len_x - 1)           
+            if (x != env->len_x - 1)         
+            { 
+                map[y][x + 1].rap = proportion_altitude(env, &map[y][x + 1]);
                 draw_segment(env, new, new_coord(env, &map[y][x + 1]));
-            if (y != env->len_y - 1)            
+            }
+            if (y != env->len_y - 1)
+            {            
+                map[y + 1][x].rap = proportion_altitude(env, &map[y + 1][x]);
                 draw_segment(env, new, new_coord(env, &map[y + 1][x]));
+            }
             mlx_put_pixel_to_image(env, new);
             free(new);
             x++;

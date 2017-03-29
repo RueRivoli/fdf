@@ -75,10 +75,10 @@ int		main(int argc, char **argv)
 	rescale(env, env->map);
 	//env->map = proj_iso(env, env->map);
 	//pix = proj_iso(env, env->map);
-	//get_extreme(env, env->map);
+	get_extreme(env, env->map);
 	//scale(env, env->map);
 	
-	ft_putnbr(env->bool_color);
+	//ft_putnbr(env->bool_color);
 	
 	//display_map(pix, env);
 
