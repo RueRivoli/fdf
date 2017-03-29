@@ -85,16 +85,16 @@
 # define SCROLL_DOWN 5
 # define SCROLL_BIS 7
 
-# define COLOR_Z_0 16777215
-# define COLOR_Z_1 16764108
-# define COLOR_Z_2 16757683
-# define COLOR_Z_3 16750937
-# define COLOR_Z_4 16744576
-# define COLOR_Z_5 16737894
-# define COLOR_Z_6 16731469
-# define COLOR_Z_7 16724787
-# define COLOR_Z_8 16718362
-# define COLOR_Z_9 16711680
+# define COLOR_Z_0 0xFFFFFF
+# define COLOR_Z_1 0xF9EEEC
+# define COLOR_Z_2 0xF7DED8
+# define COLOR_Z_3 0xF6C9C0
+# define COLOR_Z_4 0xF8B1A2
+# define COLOR_Z_5 0xF9A391
+# define COLOR_Z_6 0xF99681
+# define COLOR_Z_7 0xF98870
+# define COLOR_Z_8 0xF97154
+# define COLOR_Z_9 0xFF0000
 
 
 #endif

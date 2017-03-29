@@ -23,11 +23,11 @@ t_node		*new_node()
 	node->x = 0;
 	node->y = 0;
 	node->z = 0;
-	node->color = 0;
+	node->color = "";
 	return (node);
 }
 
-t_node		*init_node(int x0, int y0, int z0, int color0)
+t_node		*init_node(int x0, int y0, int z0, char *color0)
 {
 	t_node *node;
 
@@ -49,7 +49,7 @@ void		display_node(t_node *node)
 	ft_putstr(" z : ");
 	ft_putnbr(node->z);
 	ft_putstr(" color : ");
-	ft_putnbr(node->color);
+	ft_putstr(node->color);
 }
 
 void		display_map(t_node **map, t_env *env)

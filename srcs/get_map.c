@@ -116,7 +116,7 @@ static t_node		**convert_map(char **split, t_node **map, int *bool_color)
 		{
 			if (ft_isnumber(split[x]) == 0)
 				return (NULL);
-			new = init_node(x, y, ft_atoi(split[x]), 16777215);
+			new = init_node(x, y, ft_atoi(split[x]), "0xFFFFFF");
 		}
 		else
 		{
@@ -125,9 +125,9 @@ static t_node		**convert_map(char **split, t_node **map, int *bool_color)
 			if (ft_isnumber(sp[0]) == 0)
 				return (NULL);
 			else if (get_color(sp[1]) == -1)
-				new = init_node(x, y, ft_atoi(sp[0]), 16777215);
+				new = init_node(x, y, ft_atoi(sp[0]), "0xFFFFFF");
 			else
-				new = init_node(x, y, ft_atoi(sp[0]), get_color(sp[1]));
+				new = init_node(x, y, ft_atoi(sp[0]), sp[1]);
 		}
 		map[y][x] = *new;
 		x++;

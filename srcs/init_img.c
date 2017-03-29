@@ -2,12 +2,10 @@
 #include "define.h"
 #include "fdf.h"
 
-int 	set_color(t_env *env, t_node *node)
+/*char 	*set_color(t_env *env, t_node *node)
 {
 	int z;
-	//ft_putnbr(node->z - env->min_z);
-	//ft_putchar('\n');
-	//ft_putnbr(node->z);
+
 
 	z = env->max_z - env->min_z;
 	if (node->z - env->min_z < 0.1 * z)
@@ -30,16 +28,16 @@ int 	set_color(t_env *env, t_node *node)
 		return (COLOR_Z_8);
 	else if (node->z - env->min_z > 0.9)
 		return (COLOR_Z_9);
-	return (0);
-}
+	return ("");
+}*/
 
 void    mlx_put_pixel_to_image(t_env *env, t_node *node)
 {
     int octet;
-	int color_new;
+	char *color_new;
     octet = env->img->bpp / 8;
 	if (env->bool_color == 0)
-		color_new = set_color(env, node);
+		color_new = altitude_color(env, node);		
 	else
 		color_new = node->color;
     if (node->x >= 0 && node->y >= 0 && node->x < FENE_X && node->y < FENE_Y)

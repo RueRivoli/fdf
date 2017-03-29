@@ -16,7 +16,7 @@ typedef struct s_node
 	int		x;
 	int		y;
 	int		z;
-	int		color;
+	char	*color;
 }		t_node;
 
 typedef struct s_mat

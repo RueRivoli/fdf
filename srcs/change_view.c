@@ -21,6 +21,7 @@ void    refresh(t_env *env)
     mlx_destroy_image(env->mlx, env->img);
     env->img = NULL;
     env->img = init_img(env, FENE_X, FENE_Y);
+    get_extreme(env, env->map);
     draw_map(env, env->map);
     print_image_graph(env);
 }
