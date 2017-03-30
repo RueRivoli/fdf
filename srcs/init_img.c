@@ -35,17 +35,32 @@ void    mlx_put_pixel_to_image(t_env *env, t_node *node)
 {
     int octet;
 	char *color_new;
+	int a;
+	
     octet = env->img->bpp / 8;
 	if (env->bool_color == 0)
-		color_new = altitude_color(env, node);		
+	{
+		color_new = altitude_color(env, node);
+		//ft_putstr("Alt \n");
+		if (node->z != env->max_z && node->z != env->min_z)
+		{
+			ft_putstr(color_new);
+			ft_putstr("\n");
+		}
+	}		
 	else
+	{
 		color_new = node->color;
+		ft_putstr("Colorific\n");
+	}
+	a = get_color(color_new);
     if (node->x >= 0 && node->y >= 0 && node->x < FENE_X && node->y < FENE_Y)
     {
 		/*&(node->color)*/
         ft_memcpy(&env->img->data[octet * node->x + env->img->sizeline *
-    node->y], &(color_new), octet);
+	node->y], &(a), octet);
     }
+	free(color_new);
 }
 
 t_img		*init_img(t_env *env, int height, int width)

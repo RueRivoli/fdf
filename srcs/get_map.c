@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-static int		get_color(char *str)
+ int		get_color(char *str)
 {
 	int i;
 

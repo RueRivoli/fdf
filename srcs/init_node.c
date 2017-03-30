@@ -24,6 +24,7 @@ t_node		*new_node()
 	node->y = 0;
 	node->z = 0;
 	node->color = "";
+	node->rap = 0.0;
 	return (node);
 }
 

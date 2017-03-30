@@ -42,6 +42,8 @@ void    draw_link(t_env *env, t_node **map);
 t_node *new_coord(t_env *env, t_node *node);
 char     *progressive_color(t_node *node1, t_node *node2, int i);
 void    which_proj(t_env *env, t_mat *mat, t_node *node);
+void				get_extreme_after_transform(t_env *env, t_node **map);
+
 
 
 /*
@@ -70,6 +72,7 @@ void	get_extreme(t_env *env, t_node **map);
 void    scale(t_env *env, t_node **map);
 void    rescale(t_env *env, t_node **map);
 t_node		**get_map(int fd, t_env *env);
+ int		get_color(char *str);
 
 /*
 * init_env.c

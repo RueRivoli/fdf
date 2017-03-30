@@ -75,14 +75,30 @@ int		main(int argc, char **argv)
 	rescale(env, env->map);
 	//env->map = proj_iso(env, env->map);
 	//pix = proj_iso(env, env->map);
-	get_extreme(env, env->map);
+	//get_extreme(env, env->map);
 	//scale(env, env->map);
 	
 	//ft_putnbr(env->bool_color);
 	
 	//display_map(pix, env);
 
-	draw_map(env, env->map);
+/*Test
+
+*/
+	//ft_putnbr(strcmp(altitude_color(env, &env->map[0][0]), altitude_color(env, &env->map[2][2])));
+	//ft_putnbr(env->map[2][2].z);
+	//ft_putstr(altitude_color(env, &env->map[2][2]));
+	//ft_putstr(altitude_color(env, &env->map[0][0]));
+	/*char *hex;
+
+	hex = ft_itohex(0);
+	ft_putstr(hex);
+	ft_putstr("\n");
+	hex = altitude_color(env,&env->map[0][0]);
+	ft_putstr(hex);
+*/
+	ft_putnbr(env->bool_color);
+	//draw_map(env, env->map);
 	//draw_link(env, env->map);
 	print_all(env);
 
@@ -91,6 +107,7 @@ int		main(int argc, char **argv)
 	free(env);
 	free(env->map);
 	free(env->img);
+	free(env->img->data);
 	free(env);
 	return (0);
 }

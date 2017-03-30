@@ -1,5 +1,5 @@
-# include "fdf.h"
-
+//# include "fdf.h"
+# include "../libft/libft.h"
 static char		convert(int i)
 {
 	if (i >= 0 && i <= 9)
@@ -28,9 +28,11 @@ char	*ft_itohex(int i)
 	int len;
 	int fact;
 	char *str;
+	char *str_new;
 	int k;
 	int a;
 
+	str_new = NULL; 
 	k = 0;
 	fact = 1;
 	len = length(i);
@@ -54,5 +56,14 @@ char	*ft_itohex(int i)
 		a--;
 		k++;
 	}
+	if (ft_strlen(str) == 1)
+	{
+		if (!(str_new = ft_strnew(2)))
+			return (NULL);
+		str_new[0] = '0';
+		str_new[1] = str[0];
+		return (str_new);
+	}
 	return (str);	
 }
+

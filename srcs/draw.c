@@ -33,7 +33,8 @@ void    which_proj(t_env *env, t_mat *mat, t_node *node)
 
 char     *altitude_color(t_env *env, t_node *node)
 {
-    //int delta;
+    float delta;
+    float deltab;
     int r;
     int g;
     int b;
@@ -42,34 +43,64 @@ char     *altitude_color(t_env *env, t_node *node)
     int bn;
     char *str;
     char *hex;
+    
 
+    /*delta = (float) node->z - env->min_z;
+    delta = (float ) delta / (env->max_z - env->min_z);*/
+    delta = (float) node->z - env->min_z;
+    deltab = (float) env->max_z - env->min_z;
+    delta = (float) delta / deltab;
     (void)env;
+    (void)node;
+    /*if (delta != 0.00)
+        printf("%f\n", delta);*/
     if (!(str = ft_strnew(8)))
         return (NULL);
-    /*delta = (node->z - env->min_z) / (env->max_z - env->min_z);*/
     r = ft_hextoint(ft_strsub("0xFFFFFF", 2, 2)) - ft_hextoint(ft_strsub("0xFF0000", 2, 2));
-    g = ft_hextoint(ft_strsub("0xFFFFFF", 4, 2)) - ft_hextoint(ft_strsub("0xFF0000", 4, 2));
-    b = ft_hextoint(ft_strsub("0xFFFFFF", 6, 2)) - ft_hextoint(ft_strsub("0xFF0000", 6, 2));
+    g = ft_hextoint(ft_strsub("0xFF0000", 4, 2)) - ft_hextoint(ft_strsub("0xFFFFFF", 4, 2));
+    b = ft_hextoint(ft_strsub("0xFF0000", 6, 2)) - ft_hextoint(ft_strsub("0xFFFFFF", 6, 2));
 
-    rn = ft_hextoint(ft_strsub("0xFF0000", 2, 2)) + node->rap * r;
-    gn = ft_hextoint(ft_strsub("0xFF0000", 4, 2)) + node->rap * g;
-    bn = ft_hextoint(ft_strsub("0xFF0000", 6, 2)) + node->rap * b;
+    rn = (int)(ft_hextoint(ft_strsub("0xFF0000", 2, 2)) + delta * r);
+    gn = (int)(ft_hextoint(ft_strsub("0xFFFFFF", 4, 2)) + delta * g);
+    bn = (int) (ft_hextoint(ft_strsub("0xFFFFFF", 6, 2)) + delta * b);
+    /*if (gn != 0)
+        printf("%d\n", gn);*/
     hex = ft_itohex(rn);
     str[0] = '0';
     str[1] = 'x';
     str[2] = hex[0];
     str[3] = hex[1];
+    
+    /*ft_putstr("A\n");    
+    ft_putnbr(rn);
+    ft_putchar('\n');*/
+
     hex = ft_itohex(gn);
     str[4] = hex[0];
     str[5] = hex[1];
+   /*ft_putstr("B\n");  
+    ft_putstr(hex);
+    ft_putchar('\n');*/
+
     hex = ft_itohex(bn);
     str[6] = hex[0];
     str[7] = hex[1];
+    /*ft_putstr("C\n");  
+    ft_putstr(hex);
+    ft_putchar('\n');*/
+    
+        //ft_putstr(hex1);
+        /*if (strcmp(str, "0xFFFFFF") != 0)
+        {
+			ft_putstr(str);
+			ft_putstr("\n");
+        }*/
     return (str);
 }
 
 float   proportion_altitude(t_env *env, t_node *node)
 {
+    printf("%d\n", node->z);
     return ((node->z - env->min_z) / (env->max_z - env->min_z));
 }
 
@@ -92,9 +123,10 @@ char     *progressive_color(t_node *node1, t_node *node2, int i)
     g = ft_hextoint(ft_strsub(node2->color, 4, 2)) - ft_hextoint(ft_strsub(node1->color, 4, 2));
     b = ft_hextoint(ft_strsub(node2->color, 6, 2)) - ft_hextoint(ft_strsub(node1->color, 6, 2));
 
-    rn = ft_hextoint(ft_strsub(node1->color, 2, 2)) + (i / delta) * r;
-    gn = ft_hextoint(ft_strsub(node1->color, 4, 2)) + (i / delta) * g;
-    bn = ft_hextoint(ft_strsub(node1->color, 6, 2)) + (i / delta) * b;
+    
+    rn = (int)ft_hextoint(ft_strsub(node1->color, 2, 2)) + (i / delta) * r;
+    gn = (int)ft_hextoint(ft_strsub(node1->color, 4, 2)) + (i / delta) * g;
+    bn = (int)ft_hextoint(ft_strsub(node1->color, 6, 2)) + (i / delta) * b;
     hex = ft_itohex(rn);
     str[0] = '0';
     str[1] = 'x';
@@ -133,6 +165,32 @@ t_node *new_coord(t_env *env, t_node *node)
         return (init_node((int)mat.x, (int)mat.y, (int)mat.z , node->color));
 }
 
+void				get_extreme_after_transform(t_env *env, t_node **map)
+{
+	int i;
+	int j;
+    t_node *new;
+
+	j = 0;
+    env->min_z = new_coord(env, &map[0][0])->z;
+	env->max_z = new_coord(env,&map[0][0])->z;
+	while (j < env->len_y)
+	{
+		i = 0;
+		while (i < env->len_x)
+		{
+            new = new_coord(env, &map[j][i]);
+			if (new->z > env->max_z)
+				env->max_z = new->z;
+			if (new->z < env->min_z)
+				env->min_z = new->z;
+			i++;
+		}
+		j++;
+	}
+}
+
+
 void    draw_map(t_env *env, t_node **map)
 {
     int y;
@@ -140,24 +198,26 @@ void    draw_map(t_env *env, t_node **map)
     t_node *new;
     
     y = 0;
-    get_extreme(env, env->map);
+    new = NULL;
+    get_extreme_after_transform(env, map);
     while (y < env->len_y)
     {
         x = 0;
         while (x < env->len_x)
         {   
             new = NULL;
-            map[y][x].rap = proportion_altitude(env, &map[y][x]);
+            //map[y][x].rap = proportion_altitude(env, &map[y][x]);
+            //printf("%f\n", map[y][x].rap);
             new = new_coord(env, &map[y][x]);
             
             if (x != env->len_x - 1)         
-            { 
-                map[y][x + 1].rap = proportion_altitude(env, &map[y][x + 1]);
+            {  
+                //map[y][x + 1].rap = proportion_altitude(env, &map[y][x + 1]);
                 draw_segment(env, new, new_coord(env, &map[y][x + 1]));
             }
             if (y != env->len_y - 1)
             {            
-                map[y + 1][x].rap = proportion_altitude(env, &map[y + 1][x]);
+                //map[y + 1][x].rap = proportion_altitude(env, &map[y + 1][x]);
                 draw_segment(env, new, new_coord(env, &map[y + 1][x]));
             }
             mlx_put_pixel_to_image(env, new);
