@@ -32,6 +32,7 @@ t_node  **rotation_z(t_node **map, int len_x, int len_y);
 */
 int     right_color(t_node *node1, t_node *node2);
 char     *altitude_color(t_env *env, t_node *node);
+void     get_extreme_xy_after_transform(t_env *env, t_node **map);
 void    draw_map(t_env *env, t_node **map);
 void    draw_vertical(t_env *env, t_node *node1, t_node *node2);
 void    draw_horizontal(t_env *env, t_node *node1, t_node *node2);
@@ -73,6 +74,7 @@ void    scale(t_env *env, t_node **map);
 void    rescale(t_env *env, t_node **map);
 t_node		**get_map(int fd, t_env *env);
  int		get_color(char *str);
+ char		*homogene_color(char *str);
 
 /*
 * init_env.c

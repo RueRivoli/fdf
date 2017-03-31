@@ -22,7 +22,7 @@
 # define SIZE_X 1920
 # define SIZE_Y 1080
 # define PI 3.14
-# define THETA 7 * PI / 180   
+# define THETA 2 * PI / 180   
 # define FENE_X 1200
 # define FENE_Y 900
 # define BACK_X 1024

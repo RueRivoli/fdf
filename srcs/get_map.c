@@ -26,6 +26,35 @@
 	return (-1);
 }
 
+
+char		*homogene_color(char *str)
+{
+	int i;
+	int j;
+	char *str_new;
+
+	
+	i = 0;
+	while (str[i])
+		i++;
+	if (i == 8)
+		return (str);
+	else if (i < 8)
+	{
+		if (!(str_new = ft_strnew(8)))
+			return (NULL);
+		str_new = ft_strncpy(str_new, str, i);
+		j = i;
+		while (j < 8)
+		{
+			str_new[j] = '0';
+			j++;
+		}
+		return (str_new);
+	}
+	return (NULL);
+}
+
 void				get_extreme(t_env *env, t_node **map)
 {
 	int i;
@@ -99,6 +128,7 @@ static t_node		**convert_map(char **split, t_node **map, int *bool_color)
 	int x;
 	t_node *new;
 	char **sp;
+	int k;
 
 	sp = NULL;
 	len = ft_splitlen(split);
@@ -121,13 +151,18 @@ static t_node		**convert_map(char **split, t_node **map, int *bool_color)
 		else
 		{
 			*bool_color = 1;
+			k = 0;
 			sp = ft_strsplit(split[x], ',');
 			if (ft_isnumber(sp[0]) == 0)
 				return (NULL);
 			else if (get_color(sp[1]) == -1)
 				new = init_node(x, y, ft_atoi(sp[0]), "0xFFFFFF");
 			else
-				new = init_node(x, y, ft_atoi(sp[0]), sp[1]);
+			{
+				new = init_node(x, y, ft_atoi(sp[0]),homogene_color(sp[1]));
+				//ft_putnbr(ft_get_color_mlx((const char)sp[1], &k));
+				//ft_putchar('\n');
+			}
 		}
 		map[y][x] = *new;
 		x++;

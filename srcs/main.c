@@ -97,8 +97,9 @@ int		main(int argc, char **argv)
 	hex = altitude_color(env,&env->map[0][0]);
 	ft_putstr(hex);
 */
-	ft_putnbr(env->bool_color);
-	//draw_map(env, env->map);
+	//ft_putnbr(env->bool_color);
+	//ft_putstr(homogene_color("0x802020"));
+	draw_map(env, env->map);
 	//draw_link(env, env->map);
 	print_all(env);
 
