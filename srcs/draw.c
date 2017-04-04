@@ -104,7 +104,7 @@ float   proportion_altitude(t_env *env, t_node *node)
     return ((node->z - env->min_z) / (env->max_z - env->min_z));
 }
 
-char     *progressive_color(t_node *node1, t_node *node2, int i)
+/*char     *progressive_color(t_node *node1, t_node *node2, int i)
 {
     int delta;
     int r;
@@ -120,9 +120,11 @@ char     *progressive_color(t_node *node1, t_node *node2, int i)
         return (NULL);
     delta = sqrt(pow(node1->x - node2->x, 2) + pow(node1->y - node2->y, 2));
     r = ft_hextoint(ft_strsub(node2->color, 2, 2)) - ft_hextoint(ft_strsub(node1->color, 2, 2));
+    
     g = ft_hextoint(ft_strsub(node2->color, 4, 2)) - ft_hextoint(ft_strsub(node1->color, 4, 2));
+    ft_putchar('C');
     b = ft_hextoint(ft_strsub(node2->color, 6, 2)) - ft_hextoint(ft_strsub(node1->color, 6, 2));
-
+    
     
     rn = (int)ft_hextoint(ft_strsub(node1->color, 2, 2)) + (i / delta) * r;
     gn = (int)ft_hextoint(ft_strsub(node1->color, 4, 2)) + (i / delta) * g;
@@ -139,26 +141,38 @@ char     *progressive_color(t_node *node1, t_node *node2, int i)
     str[6] = hex[0];
     str[7] = hex[1];
     return (str);
-}
+}*/
 
 t_node *new_coord(t_env *env, t_node *node)
 {
         t_mat mat;
         int x_cen;
         int y_cen;
+        int z_cen;
 
         x_cen = (env->min_x + env->max_x) / 2;
         y_cen = (env->min_y + env->max_y) / 2;
+        z_cen = (env->min_z + env->max_z) / 2;
 
             which_proj(env, &mat, node);
             //mat.c = mat.x;
             mat.x = env->zoom * mat.x + 15 * env->trans_x;
             mat.y = env->zoom * mat.y + 15 * env->trans_y;
-            mat.z = mat.z * env->zoom;//trans et zoom
+            mat.z = env->zoom * mat.z;//trans et zoom
 
             mat.c = mat.x;
-            mat.x = x_cen + (mat.x - x_cen) * cos(THETA * env->rot_z) - (mat.y - y_cen) * sin(THETA * env->rot_z);
-            mat.y = y_cen + (mat.c - x_cen) * sin(THETA * env->rot_z) + (mat.y - y_cen) * cos(THETA * env->rot_z);
+            mat.x = x_cen + (mat.x - x_cen) * cos(THETA * env->rot_z) + (mat.y - y_cen) * sin(THETA * env->rot_z);
+            mat.y = y_cen - (mat.c - x_cen) * sin(THETA * env->rot_z) + (mat.y - y_cen) * cos(THETA * env->rot_z);
+
+            mat.a = mat.y;
+            mat.y =  y_cen + (mat.y - y_cen) * cos(THETA * env->rot_x) - (mat.z - z_cen) * sin(THETA * env->rot_x);
+            mat.z =  z_cen - (mat.a - y_cen) * sin(THETA * env->rot_x) + (mat.z - z_cen) * cos(THETA * env->rot_x);
+
+            /*mat.b = mat.z;
+            mat.z =  z_cen + (mat.z - z_cen) * cos(THETA * env->rot_y) - (mat.x - x_cen) * sin(THETA * env->rot_y);
+            mat.x =  x_cen + (mat.b - z_cen) * sin(THETA * env->rot_y) + (mat.x - x_cen) * cos(THETA * env->rot_y);*/
+
+
 
             /*mat.x = mat.x * cos(THETA * env->rot_z) + mat.y * sin(THETA * env->rot_z);
             mat.y =  - mat.c * sin(THETA * env->rot_z) + mat.y * cos(THETA * env->rot_z);//rot z
@@ -171,7 +185,7 @@ t_node *new_coord(t_env *env, t_node *node)
             mat.z =  mat.z * cos(THETA * env->rot_y) - mat.x * sin(THETA * env->rot_y);
             mat.x = - mat.b * sin(THETA * env->rot_y) + mat.x * cos(THETA * env->rot_y);//rot y*/
         
-        return (init_node((int)mat.x, (int)mat.y, (int)mat.z , node->color));
+        return (init_node((int)mat.x, (int)mat.y, (int)mat.z , node->color, node->color_num));
 }
 
 /*void				get_extreme_after_transform(t_env *env, t_node **map)
@@ -290,12 +304,14 @@ void    draw_map(t_env *env, t_node **map)
             new = NULL;
             //map[y][x].rap = proportion_altitude(env, &map[y][x]);
             //printf("%f\n", map[y][x].rap);
+           
             new = new_coord(env, &map[y][x]);
             
             if (x != env->len_x - 1)         
             {  
                 //map[y][x + 1].rap = proportion_altitude(env, &map[y][x + 1]);
                 draw_segment(env, new, new_coord(env, &map[y][x + 1]));
+                 
             }
             if (y != env->len_y - 1)
             {            
@@ -330,7 +346,8 @@ void    draw_vertical(t_env *env, t_node *node1, t_node *node2)
             new.x = x;
             new.y = y;
             new.z = (int)z;
-            new.color = progressive_color(node1, node2, y);
+            //new.color = progressive_color(node1, node2, y);
+            new.color_num = node1->color_num;
             mlx_put_pixel_to_image(env, &new);
             y++;
         }
@@ -356,7 +373,8 @@ void    draw_horizontal(t_env *env, t_node *node1, t_node *node2)
             new.x = x;
             new.y = y;
             new.z = (int)z;
-            new.color = progressive_color(node1, node2, x);
+            //new.color = progressive_color(node1, node2, x);
+            new.color_num = node1->color_num;
             mlx_put_pixel_to_image(env, &new);
             x++;
         }
@@ -377,12 +395,16 @@ void    draw_soft_rise(t_env *env, t_node *node1, t_node *node2)
               x = node1->x + 1;
               while (x < node2->x)
              {
+                
                   y_new = node1->y + ((node2->y - node1->y) * (x - node1->x) / (node2->x - node1->x));
                   z = node1->z + sqrt(pow(x - node1->x, 2) + pow(y_new - node1->y, 2)) * (node2->z - node1->z) / sqrt(pow(node2->x - node1->x, 2) +  pow(node2->y - node1->y, 2));
                   new.x = x;
+                  
                 new.y = y_new;
                 new.z = (int)z;
-                new.color = progressive_color(node1, node2, x);
+                //new.color = progressive_color(node1, node2, x);
+                
+                new.color_num = node1->color_num;
                  mlx_put_pixel_to_image(env, &new);
                  x++;
              }
@@ -407,7 +429,8 @@ void    draw_high_rise(t_env *env, t_node *node1, t_node *node2)
                   new.x = x_new;
                     new.y = y;
                     new.z = (int)z;
-                 new.color = progressive_color(node1, node2, y);
+                 //new.color = progressive_color(node1, node2, y);
+                 new.color_num = node1->color_num;
                  mlx_put_pixel_to_image(env, &new);
                  y++;
              }
@@ -417,11 +440,19 @@ void    draw_high_rise(t_env *env, t_node *node1, t_node *node2)
 void    draw_segment(t_env *env, t_node *node1, t_node *node2)
 {
     if (node1->x == node2->x && node1->y != node2->y)
+    {
         draw_vertical(env, node1, node2);
+    }
     else if (node1->y == node2->y && node1->x != node2->x)
+    {
         draw_horizontal(env, node1, node2);
-    else if (node1->x != node2->x && abs((node2->y - node1->y)/(node2->x - node1->x)) < 1) 
+    }
+    else if (node1->x != node2->x && abs((node2->y - node1->y)/(node2->x - node1->x)) < 1)
+    { 
+        
         draw_soft_rise(env, node1, node2);
+        
+    }
     else if (node1->y != node2->y)
         draw_high_rise(env, node1, node2);
 }

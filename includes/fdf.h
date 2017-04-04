@@ -96,7 +96,7 @@ void	fill_img(t_env *env, int *h, int *w);
 * init_node.c
 */
 t_node	*new_node();
-t_node	*init_node(int x0, int y0, int z0, char *color0);
+t_node	*init_node(int x0, int y0, int z0, char *color0, int color_num0);
 void	display_map(t_node **map, t_env *env);
 void	display_node(t_node *node);
 

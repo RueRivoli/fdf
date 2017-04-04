@@ -21,7 +21,7 @@ void    refresh(t_env *env)
     mlx_destroy_image(env->mlx, env->img);
     env->img = NULL;
     env->img = init_img(env, FENE_X, FENE_Y);
-    get_extreme(env, env->map);
+    //get_extreme(env, env->map);
     draw_map(env, env->map);
     print_image_graph(env);
 }
@@ -84,6 +84,9 @@ void     reinitialise(t_env *env)
 {       
         env->min_x = SIZE_X;
 	    env->min_y = SIZE_Y;
+        env->rot_x = 0;
+	    env->rot_y = 0;
+        env->rot_z = 0;
 	    env->max_x = 0;
 	    env->max_y = 0;
         env->trans_x = 0;

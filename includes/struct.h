@@ -17,6 +17,7 @@ typedef struct s_node
 	int		y;
 	int		z;
 	char	*color;
+	int		color_num;
 	float	rap;
 }		t_node;
 

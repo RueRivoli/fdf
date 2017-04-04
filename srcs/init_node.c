@@ -24,11 +24,12 @@ t_node		*new_node()
 	node->y = 0;
 	node->z = 0;
 	node->color = "";
+	node->color_num = 0;
 	node->rap = 0.0;
 	return (node);
 }
 
-t_node		*init_node(int x0, int y0, int z0, char *color0)
+t_node		*init_node(int x0, int y0, int z0, char *color0, int color_num0)
 {
 	t_node *node;
 
@@ -38,6 +39,7 @@ t_node		*init_node(int x0, int y0, int z0, char *color0)
 	node->y = y0;
 	node->z = z0;
 	node->color = color0;
+	node->color_num = color_num0;
 	return (node);
 }
 

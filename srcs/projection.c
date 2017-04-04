@@ -43,7 +43,7 @@ void    transform(t_env *env, t_node **map, t_node **new, int j)
             mat.z =  mat.z * cos(THETA * env->rot_y) - mat.x * sin(THETA * env->rot_y);
             mat.x = - mat.b * sin(THETA * env->rot_y) + mat.x * cos(THETA * env->rot_y);//rot y
             
-            add = init_node((int)mat.x, (int)mat.y, (int)mat.z , map[j][i].color);
+            add = init_node((int)mat.x, (int)mat.y, (int)mat.z , map[j][i].color, map[j][i].color_num);
             new[j][i] = *add;
             i++;
         }
@@ -109,7 +109,7 @@ t_node  **proj_para(t_env *env, t_node **map)
             z =  z * cos(THETA * env->rot_y) - x * sin(THETA * env->rot_y);
             x = - b * sin(THETA * env->rot_y) + x * cos(THETA * env->rot_y);
             
-            add = init_node((int)x, (int)y, (int)z , map[j][i].color);
+            add = init_node((int)x, (int)y, (int)z , map[j][i].color, map[j][i].color_num);
             new[j][i] = *add;
             i++;
         }
