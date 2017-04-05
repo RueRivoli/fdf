@@ -44,6 +44,7 @@ t_node *new_coord(t_env *env, t_node *node);
 char     *progressive_color(t_node *node1, t_node *node2, int i);
 void    which_proj(t_env *env, t_mat *mat, t_node *node);
 void				get_extreme_after_transform(t_env *env, t_node **map);
+void				get_extreme_local_after_transform(t_env *env, t_node **map);
 
 
 
@@ -69,7 +70,7 @@ char	*ft_itohex(int i);
 /*
 * getmap.c
 */
-void	get_extreme(t_env *env, t_node **map);
+/*void	get_extreme(t_env *env, t_node **map);*/
 void    scale(t_env *env, t_node **map);
 void    rescale(t_env *env, t_node **map);
 t_node		**get_map(int fd, t_env *env);
@@ -96,7 +97,7 @@ void	fill_img(t_env *env, int *h, int *w);
 * init_node.c
 */
 t_node	*new_node();
-t_node	*init_node(int x0, int y0, int z0, char *color0, int color_num0);
+t_node	*init_node(int x0, int y0, int z0, int color_num0);
 void	display_map(t_node **map, t_env *env);
 void	display_node(t_node *node);
 

@@ -25,13 +25,6 @@ void	new_one(t_env *env)
 	env->church_img = NULL;
 	env->len_x = 0;
 	env->len_y = 0;
-	env->min_x = SIZE_X;
-	env->min_y = SIZE_Y;
-	env->max_x = 0;
-	env->max_y = 0;
-	env->min_z = 0;
-	env->max_z = 0;
-
 }
 
 void	new_two(t_env *env)
@@ -45,6 +38,7 @@ void	new_two(t_env *env)
 	env->rot_x = 0;
 	env->rot_y = 0;
 	env->rot_z = 0;
+	env->rot_ite = 0;
 	env->filename = "";
 	env->type_proj = 0;
 	env->bool_color = 0;
@@ -62,8 +56,22 @@ t_env		*new_env()
 	
 	if (!(env = (t_env*)malloc(sizeof(t_env))))
 		return (NULL);
+	if (!(env->extr = (t_ext*)malloc(sizeof(t_ext))))
+		return (NULL);
 	new_one(env);
 	new_two(env);
+	env->extr->min_x = SIZE_X;
+	env->extr->min_y = SIZE_Y;
+	env->extr->max_x = 0;
+	env->extr->max_y = 0;
+	env->extr->max_z = 0;
+	env->extr->min_z = 0;
+	env->extr->min_xl = 0;
+	env->extr->min_yl = 0;
+	env->extr->max_xl = 0;
+	env->extr->max_yl = 0;
+	env->extr->max_zl = 0;
+	env->extr->min_zl = 0;
 	return (env);
 }
 

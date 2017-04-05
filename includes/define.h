@@ -22,7 +22,7 @@
 # define SIZE_X 1920
 # define SIZE_Y 1080
 # define PI 3.14
-# define THETA 2 * PI / 180   
+# define THETA 20 * PI / 180   
 # define FENE_X 1200
 # define FENE_Y 900
 # define BACK_X 1024
@@ -72,7 +72,7 @@
 # define TOUCH_I 34
 # define TOUCH_R 15
 # define TOUCH_T 17
-# define TOUCH_Z 13
+# define TOUCH_Z 6
 # define TOUCH_E 14
 # define TOUCH_S 1
 # define TOUCH_D 2 

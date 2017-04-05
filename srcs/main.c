@@ -76,6 +76,7 @@ int		main(int argc, char **argv)
 	//env->map = proj_iso(env, env->map);
 	//pix = proj_iso(env, env->map);
 	//get_extreme(env, env->map);
+	get_extreme_local_after_transform(env, env->map);
 	//scale(env, env->map);
 	
 	//ft_putnbr(env->bool_color);

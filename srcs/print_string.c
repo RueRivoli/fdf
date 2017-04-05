@@ -5,8 +5,8 @@ int    print_title(t_env *env)
     /*
     * Partie gauche 
     */
-    mlx_string_put(env->mlx, env->win, 850, 30, 0x3A5FCD, "File name : ");
-    mlx_string_put(env->mlx, env->win, 1000, 30, 0x3A5FCD, env->filename);
+    mlx_string_put(env->mlx, env->win, 850, 30, 0xd6b017, "File name : ");
+    mlx_string_put(env->mlx, env->win, 1000, 30, 0xd6b017, env->filename);
     mlx_string_put(env->mlx, env->win, 50, 300, 0x3A5FCD, "Current x : ");
     mlx_string_put(env->mlx, env->win, 50, 360, 0x3A5FCD, "Current y : ");
     mlx_string_put(env->mlx, env->win, 30, 600, 0xFB9800, " \"Success consists of going");

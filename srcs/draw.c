@@ -44,16 +44,12 @@ char     *altitude_color(t_env *env, t_node *node)
     char *str;
     char *hex;
     
-
-    /*delta = (float) node->z - env->min_z;
-    delta = (float ) delta / (env->max_z - env->min_z);*/
-    delta = (float) node->z - env->min_z;
-    deltab = (float) env->max_z - env->min_z;
+    t_ext *ext;
+    ext = env->extr;
+    delta = (float) node->z - ext->min_z;
+    deltab = (float) ext->max_z - ext->min_z;
     delta = (float) delta / deltab;
-    (void)env;
-    (void)node;
-    /*if (delta != 0.00)
-        printf("%f\n", delta);*/
+   
     if (!(str = ft_strnew(8)))
         return (NULL);
     r = ft_hextoint(ft_strsub("0xFFFFFF", 2, 2)) - ft_hextoint(ft_strsub("0xFF0000", 2, 2));
@@ -101,7 +97,7 @@ char     *altitude_color(t_env *env, t_node *node)
 float   proportion_altitude(t_env *env, t_node *node)
 {
     printf("%d\n", node->z);
-    return ((node->z - env->min_z) / (env->max_z - env->min_z));
+    return ((node->z - env->extr->min_z) / (env->extr->max_z - env->extr->min_z));
 }
 
 /*char     *progressive_color(t_node *node1, t_node *node2, int i)
@@ -149,30 +145,39 @@ t_node *new_coord(t_env *env, t_node *node)
         int x_cen;
         int y_cen;
         int z_cen;
+        t_ext *ext;
 
-        x_cen = (env->min_x + env->max_x) / 2;
-        y_cen = (env->min_y + env->max_y) / 2;
-        z_cen = (env->min_z + env->max_z) / 2;
+        ext = env->extr;
+        /*x_cen = (ext->min_xl + ext->max_xl) / 2;
+        y_cen = (ext->min_yl + ext->max_yl) / 2;
+        z_cen = (ext->min_zl + ext->max_zl) / 2;*/
 
+            x_cen = FENE_X / 2;
+        y_cen = FENE_Y / 2;
+        //z_cen = (ext->min_zl + ext->max_zl) / 2;
+            z_cen = 0;
             which_proj(env, &mat, node);
-            //mat.c = mat.x;
-            mat.x = env->zoom * mat.x + 15 * env->trans_x;
-            mat.y = env->zoom * mat.y + 15 * env->trans_y;
-            mat.z = env->zoom * mat.z;//trans et zoom
+            
 
             mat.c = mat.x;
-            mat.x = x_cen + (mat.x - x_cen) * cos(THETA * env->rot_z) + (mat.y - y_cen) * sin(THETA * env->rot_z);
-            mat.y = y_cen - (mat.c - x_cen) * sin(THETA * env->rot_z) + (mat.y - y_cen) * cos(THETA * env->rot_z);
+            mat.x = x_cen + (mat.x - x_cen) * cos(THETA * env->rot_z) - (mat.y - y_cen) * sin(THETA * env->rot_z);
+            mat.y = y_cen + (mat.c - x_cen) * sin(THETA * env->rot_z) + (mat.y - y_cen) * cos(THETA * env->rot_z);
+
+            
 
             mat.a = mat.y;
             mat.y =  y_cen + (mat.y - y_cen) * cos(THETA * env->rot_x) - (mat.z - z_cen) * sin(THETA * env->rot_x);
             mat.z =  z_cen - (mat.a - y_cen) * sin(THETA * env->rot_x) + (mat.z - z_cen) * cos(THETA * env->rot_x);
 
-            /*mat.b = mat.z;
+            mat.b = mat.z;
             mat.z =  z_cen + (mat.z - z_cen) * cos(THETA * env->rot_y) - (mat.x - x_cen) * sin(THETA * env->rot_y);
-            mat.x =  x_cen + (mat.b - z_cen) * sin(THETA * env->rot_y) + (mat.x - x_cen) * cos(THETA * env->rot_y);*/
+            mat.x =  x_cen + (mat.b - z_cen) * sin(THETA * env->rot_y) + (mat.x - x_cen) * cos(THETA * env->rot_y);
 
 
+            mat.c = mat.x;
+            mat.x = env->zoom * mat.x + 15 * env->trans_x;
+            mat.y = env->zoom * mat.y + 15 * env->trans_y;
+            mat.z = env->zoom * mat.z;
 
             /*mat.x = mat.x * cos(THETA * env->rot_z) + mat.y * sin(THETA * env->rot_z);
             mat.y =  - mat.c * sin(THETA * env->rot_z) + mat.y * cos(THETA * env->rot_z);//rot z
@@ -185,10 +190,97 @@ t_node *new_coord(t_env *env, t_node *node)
             mat.z =  mat.z * cos(THETA * env->rot_y) - mat.x * sin(THETA * env->rot_y);
             mat.x = - mat.b * sin(THETA * env->rot_y) + mat.x * cos(THETA * env->rot_y);//rot y*/
         
-        return (init_node((int)mat.x, (int)mat.y, (int)mat.z , node->color, node->color_num));
+        return (init_node((int)mat.x, (int)mat.y, (int)mat.z , node->color_num));
 }
 
-/*void				get_extreme_after_transform(t_env *env, t_node **map)
+void				get_extreme_after_transform(t_env *env, t_node **map)
+{
+	int i;
+	int j;
+    t_node *new;
+    t_node *start;
+    t_ext  *ext;
+
+    ext = env->extr;
+
+	j = 0;
+    start = new_coord(env, &map[0][0]);
+    ext->min_x = start->x;
+	ext->max_x = start->x;
+    ext->min_y = start->y;
+	ext->max_y = start->y;
+    ext->min_z = start->z;
+	ext->max_z = start->z;
+	while (j < env->len_y)
+	{
+		i = 0;
+		while (i < env->len_x)
+		{
+            new = new_coord(env, &map[j][i]);
+            if (new->x > ext->max_x)
+				ext->max_x = new->x;
+			if (new->x < ext->min_x)
+				ext->min_x = new->x;
+            if (new->y > ext->max_y)
+				ext->max_y = new->y;
+			if (new->y < ext->min_y)
+				ext->min_y = new->y;
+			if (new->z > ext->max_z)
+				ext->max_z = new->z;
+			if (new->z < ext->min_z)
+				ext->min_z = new->z;
+			i++;
+		}
+		j++;
+	}
+}
+
+
+void				get_extreme_local_after_transform(t_env *env, t_node **map)
+{
+	int i;
+	int j;
+    t_node *new;
+    t_node *start;
+    t_ext  *ext;
+
+    ext = env->extr;
+
+	j = 0;
+    start = new_coord(env, &map[0][0]);
+    ext->min_xl = start->x;
+	ext->max_xl = start->x;
+    ext->min_yl = start->y;
+	ext->max_yl = start->y;
+    ext->min_zl = start->z;
+	ext->max_zl = start->z;
+	while (j < env->len_y)
+	{
+		i = 0;
+		while (i < env->len_x)
+		{
+            new = new_coord(env, &map[j][i]);
+            if (new->x > ext->max_xl)
+				ext->max_xl = new->x;
+			if (new->x < ext->min_xl)
+				ext->min_xl = new->x;
+            if (new->y > ext->max_yl)
+				ext->max_yl = new->y;
+			if (new->y < ext->min_yl)
+				ext->min_yl = new->y;
+			if (new->z > ext->max_zl)
+				ext->max_zl = new->z;
+			if (new->z < ext->min_zl)
+				ext->min_zl = new->z;
+			i++;
+		}
+		j++;
+	}
+}
+
+
+
+/*void				get_extreme_after_transform(t_ext *env, t_node **map)
 {
 	int i;
 	int j;
@@ -197,10 +289,6 @@ t_node *new_coord(t_env *env, t_node *node)
 
 	j = 0;
     start = new_coord(env, &map[0][0]);
-    env->min_x = start->x;
-	env->max_x = start->x;
-    env->min_y = start->y;
-	env->max_y = start->y;
     env->min_z = start->z;
 	env->max_z = start->z;
 	while (j < env->len_y)
@@ -209,14 +297,6 @@ t_node *new_coord(t_env *env, t_node *node)
 		while (i < env->len_x)
 		{
             new = new_coord(env, &map[j][i]);
-            if (new->x > env->max_x)
-				env->max_x = new->x;
-			if (new->x < env->min_x)
-				env->min_x = new->x;
-            if (new->y > env->max_y)
-				env->max_y = new->y;
-			if (new->y < env->min_y)
-				env->min_y = new->y;
 			if (new->z > env->max_z)
 				env->max_z = new->z;
 			if (new->z < env->min_z)
@@ -227,34 +307,7 @@ t_node *new_coord(t_env *env, t_node *node)
 	}
 }*/
 
-void				get_extreme_after_transform(t_env *env, t_node **map)
-{
-	int i;
-	int j;
-    t_node *new;
-    t_node *start;
-
-	j = 0;
-    start = new_coord(env, &map[0][0]);
-    env->min_z = start->z;
-	env->max_z = start->z;
-	while (j < env->len_y)
-	{
-		i = 0;
-		while (i < env->len_x)
-		{
-            new = new_coord(env, &map[j][i]);
-			if (new->z > env->max_z)
-				env->max_z = new->z;
-			if (new->z < env->min_z)
-				env->min_z = new->z;
-			i++;
-		}
-		j++;
-	}
-}
-
-void				get_extreme_xy_after_transform(t_env *env, t_node **map)
+/*void				get_extreme_xy_after_transform(t_env *env, t_node **map)
 {
 	int i;
 	int j;
@@ -285,7 +338,7 @@ void				get_extreme_xy_after_transform(t_env *env, t_node **map)
 		}
 		j++;
 	}
-}
+}*/
 
 void    draw_map(t_env *env, t_node **map)
 {
@@ -324,7 +377,7 @@ void    draw_map(t_env *env, t_node **map)
         }
         y++;
     }
-    get_extreme_xy_after_transform(env,map);
+    //get_extreme_xy_after_transform(env,map);
 }
 
 void    draw_vertical(t_env *env, t_node *node1, t_node *node2)
