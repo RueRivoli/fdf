@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "define.h"
 #include "fdf.h"
 
 char 	*get_file_name(char *av1)
@@ -32,7 +31,7 @@ t_env 		*handle_error(int argc, char **argv)
 {
 	int fd;
 	t_env *env;
-
+	
 	fd = 0;
 	if (argc != 2)
 	{
@@ -45,12 +44,14 @@ t_env 		*handle_error(int argc, char **argv)
 		error_no_file();
 		return (NULL);
 	}	
-
+	
 	if (!(ft_strstr(argv[1], ".fdf")) || !(env = init_env(fd, argv[1])))
 	{
+		
 		error_no_conform();
 		return (NULL);
 	}
+	
 	return (env);
 }
 
@@ -64,52 +65,19 @@ void	ft_hook(t_env *env)
 
 int		main(int argc, char **argv)
 {
-	//t_node **pix;
 	t_env *env;
 
-	//pix = NULL;
+	
 	if (!(env = handle_error(argc, argv)))
 		return (0);
 	
-	//ft_putstr("champion");
 	rescale(env, env->map);
-	//env->map = proj_iso(env, env->map);
-	//pix = proj_iso(env, env->map);
-	//get_extreme(env, env->map);
-	get_extreme_local_after_transform(env, env->map);
-	//scale(env, env->map);
 	
-	//ft_putnbr(env->bool_color);
-	
-	//display_map(pix, env);
-
-/*Test
-
-*/
-	//ft_putnbr(strcmp(altitude_color(env, &env->map[0][0]), altitude_color(env, &env->map[2][2])));
-	//ft_putnbr(env->map[2][2].z);
-	//ft_putstr(altitude_color(env, &env->map[2][2]));
-	//ft_putstr(altitude_color(env, &env->map[0][0]));
-	/*char *hex;
-
-	hex = ft_itohex(0);
-	ft_putstr(hex);
-	ft_putstr("\n");
-	hex = altitude_color(env,&env->map[0][0]);
-	ft_putstr(hex);
-*/
-	//ft_putnbr(env->bool_color);
-	//ft_putstr(homogene_color("0x802020"));
 	draw_map(env, env->map);
-	//draw_link(env, env->map);
 	print_all(env);
 
 	ft_hook(env);
-	//free(pix);
 	free(env);
-	free(env->map);
-	free(env->img);
-	free(env->img->data);
 	free(env);
 	return (0);
 }

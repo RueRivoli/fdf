@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
-#include "define.h"
 #include "fdf.h"
 
 t_node		*new_node()
@@ -68,8 +66,6 @@ void		display_map(t_node **map, t_env *env)
 		{		
 			ft_putnbr(map[y][x].z);
 			ft_putchar(',');
-			//ft_putnbr(map[y][x].y);
-			//ft_putchar(' ');
 			x++;
 		}
 		ft_putchar('\n');

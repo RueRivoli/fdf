@@ -83,6 +83,7 @@
 
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
+# define SCROLL_OTHER 6
 # define SCROLL_BIS 7
 
 # define COLOR_Z_0 0xFFFFFF

@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
-#include "define.h"
 #include "fdf.h"
 
 
@@ -38,7 +36,6 @@ void	new_two(t_env *env)
 	env->rot_x = 0;
 	env->rot_y = 0;
 	env->rot_z = 0;
-	env->rot_ite = 0;
 	env->filename = "";
 	env->type_proj = 0;
 	env->bool_color = 0;
@@ -60,18 +57,9 @@ t_env		*new_env()
 		return (NULL);
 	new_one(env);
 	new_two(env);
-	env->extr->min_x = SIZE_X;
-	env->extr->min_y = SIZE_Y;
-	env->extr->max_x = 0;
-	env->extr->max_y = 0;
 	env->extr->max_z = 0;
 	env->extr->min_z = 0;
-	env->extr->min_xl = 0;
-	env->extr->min_yl = 0;
-	env->extr->max_xl = 0;
-	env->extr->max_yl = 0;
-	env->extr->max_zl = 0;
-	env->extr->min_zl = 0;
+
 	return (env);
 }
 
@@ -83,8 +71,10 @@ t_env	*init_env(int fd, char *av1)
 
 	h = HEIGHT_DRAW;
 	w = WIDTH_DRAW;
+	
 	if (!(env = new_env()))
 		return (NULL);
+		
 	if (!(env->map = get_map(fd, env)))
 		return (NULL);
 	env->mlx = mlx_init();

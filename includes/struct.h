@@ -32,18 +32,9 @@ typedef struct s_mat
 
 typedef struct	s_ext
 {
-	int 	min_x;
-	int 	min_y;
-	int 	max_x;
-	int     max_y;
 	int 	max_z;
 	int		min_z;
-	int		min_xl;
-	int 	min_yl;
-	int 	max_xl;
-	int     max_yl;
-	int 	max_zl;
-	int		min_zl;
+
 }				t_ext;
 
 
@@ -68,7 +59,6 @@ typedef struct s_env
 	int 	rot_x;
 	int 	rot_y;
 	int 	rot_z;
-	int		rot_ite;
 	int		type_proj;
 	int		bool_color;
 	char	*filename;
