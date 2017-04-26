@@ -6,7 +6,7 @@
 /*   By: fgallois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/06 17:07:15 by fgallois          #+#    #+#             */
-/*   Updated: 2017/04/06 17:10:18 by fgallois         ###   ########.fr       */
+/*   Updated: 2017/04/14 16:50:19 by fgallois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char			*ft_intermediate(int i, char *str, int fact, int k)
 			return (NULL);
 		str_new[0] = '0';
 		str_new[1] = str[0];
+		free(str);
 		return (str_new);
 	}
 	return (str);
@@ -67,12 +68,10 @@ char			*ft_itohex(int i)
 {
 	int		fact;
 	int		len;
-	char	*str_new;
 	char	*str;
 	int		k;
 
 	len = length(i);
-	str_new = NULL;
 	if (!(str = ft_strnew(len)))
 		return (NULL);
 	k = 0;

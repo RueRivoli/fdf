@@ -6,66 +6,11 @@
 /*   By: fgallois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/06 16:45:45 by fgallois          #+#    #+#             */
-/*   Updated: 2017/04/06 17:01:01 by fgallois         ###   ########.fr       */
+/*   Updated: 2017/04/10 11:52:16 by fgallois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void			which_proj(t_env *env, t_mat *mat, t_node *node)
-{
-	if (env->type_proj == 0)
-	{
-		mat->z = node->z * env->moove_z;
-		mat->x = CTE1 * node->x - CTE2 * node->y;
-		mat->y = -2 * mat->z + (CTE1 / 2) * node->x + (CTE2 / 2) * node->y;
-		if (env->type_proj == 0)
-		{
-			mat->x += 540;
-			mat->y += 140;
-		}
-	}
-	else if (env->type_proj == 1)
-	{
-		mat->z = node->z * env->moove_z;
-		mat->x = node->x - CTE * mat->z;
-		mat->y = node->y + (CTE / 2) * mat->z;
-	}
-}
-
-float			proportion_altitude(t_env *env, t_node *node)
-{
-	return ((node->z - env->extr->min_z)\
-			/ (env->extr->max_z - env->extr->min_z));
-}
-
-void			draw_map(t_env *env, t_node **map)
-{
-	int		y;
-	int		x;
-	t_node	*new;
-
-	y = 0;
-	new = NULL;
-	get_extreme_after_transform(env, map);
-	while (y < env->len_y)
-	{
-		x = 0;
-		while (x < env->len_x)
-		{
-			new = NULL;
-			new = new_coord(env, &map[y][x]);
-			if (x != env->len_x - 1)
-				draw_segment(env, new, new_coord(env, &map[y][x + 1]));
-			if (y != env->len_y - 1)
-				draw_segment(env, new, new_coord(env, &map[y + 1][x]));
-			mlx_put_pixel_to_image(env, new);
-			free(new);
-			x++;
-		}
-		y++;
-	}
-}
 
 void			draw_vertical(t_env *env, t_node *node1, t_node *node2)
 {

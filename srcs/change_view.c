@@ -6,24 +6,24 @@
 /*   By: fgallois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/06 17:01:56 by fgallois          #+#    #+#             */
-/*   Updated: 2017/04/06 17:07:03 by fgallois         ###   ########.fr       */
+/*   Updated: 2017/04/10 15:08:25 by fgallois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-
-   /*number 0 : translation to left
-   number 1 : translation to down
-   number 2 : translation to right
-   number 3 : translation to up
-
-   rotation 0 : rotation on x positive
-   rotation 1 : rotation on x negative
-   rotation 2 : rotation on y positive
-   rotation 3 : rotation on y negative
-   rotation 4 : rotation on z positive
-   rotation 5 : rotation on z negative*/
+/*
+**number 0 : translation to left
+**number 1 : translation to down
+**number 2 : translation to right
+**number 3 : translation to up
+**rotation 0 : rotation on x positive
+**rotation 1 : rotation on x negative
+**rotation 2 : rotation on y positive
+**rotation 3 : rotation on y negative
+**rotation 4 : rotation on z positive
+**rotation 5 : rotation on z negative
+*/
 
 void		moove_z(t_env *env, int i)
 {
@@ -45,7 +45,7 @@ void		translation(t_env *env, int number)
 	else if (number == 1)
 		env->trans_y++;
 	else
-	;
+		;
 	refresh(env);
 }
 

@@ -6,23 +6,21 @@
 /*   By: fgallois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 15:58:17 by fgallois          #+#    #+#             */
-/*   Updated: 2017/03/01 16:47:13 by fgallois         ###   ########.fr       */
+/*   Updated: 2017/04/10 14:54:50 by fgallois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINE_H
 # define DEFINE_H
 
-
-
 /*
- *
- * */
+** Sizes
+*/
 
 # define SIZE_X 1920
 # define SIZE_Y 1080
 # define PI 3.14
-# define THETA 20 * PI / 180   
+# define THETA 10 * PI / 180
 # define FENE_X 1200
 # define FENE_Y 900
 # define BACK_X 1024
@@ -38,13 +36,14 @@
 # define WIDTH_DRAW 600
 
 /*
-* Origines
+** Origines
 */
 
 # define ORIGIN_GRAPH_X 360
 # define ORIGIN_GRAPH_Y 100
+
 /*
-*Constantes geometriques
+** Constantes geometriques
 */
 
 # define CTE 1
@@ -57,7 +56,7 @@
 # define COEFF_ZD 1/1.2
 
 /*
-*key_code
+** Key_code
 */
 
 # define TOUCH_ESC 53
@@ -75,11 +74,11 @@
 # define TOUCH_Z 6
 # define TOUCH_E 14
 # define TOUCH_S 1
-# define TOUCH_D 2 
+# define TOUCH_D 2
 
 /*
-*button of mouse
-*/ 
+** Button of mouse
+*/
 
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
@@ -96,6 +95,5 @@
 # define COLOR_Z_7 0xF98870
 # define COLOR_Z_8 0xF97154
 # define COLOR_Z_9 0xFF0000
-
 
 #endif

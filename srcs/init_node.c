@@ -6,13 +6,13 @@
 /*   By: fgallois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 12:55:13 by fgallois          #+#    #+#             */
-/*   Updated: 2017/03/03 11:03:02 by fgallois         ###   ########.fr       */
+/*   Updated: 2017/04/10 12:21:30 by fgallois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_node		*new_node()
+t_node		*new_node(void)
 {
 	t_node *node;
 
@@ -55,15 +55,15 @@ void		display_map(t_node **map, t_env *env)
 {
 	int x;
 	int y;
-	ft_putstr("fre");
+
 	y = 0;
 	if (!map)
 		ft_putstr("Erreur dans la map");
 	while (y < env->len_y)
 	{
-		 x = 0;
+		x = 0;
 		while (x < env->len_x)
-		{		
+		{
 			ft_putnbr(map[y][x].z);
 			ft_putchar(',');
 			x++;

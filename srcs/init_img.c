@@ -24,6 +24,7 @@ void		mlx_put_pixel_to_image(t_env *env, t_node *node)
 	{
 		color_new = altitude_color(env, node);
 		a = get_color(color_new);
+		free(color_new);
 	}
 	else
 		a = node->color_num;
@@ -32,7 +33,6 @@ void		mlx_put_pixel_to_image(t_env *env, t_node *node)
 		ft_memcpy(&env->img->data[octet * node->x + env->img->sizeline * \
 	node->y], &a, octet);
 	}
-	free(color_new);
 }
 
 t_img		*init_img(t_env *env, int height, int width)
