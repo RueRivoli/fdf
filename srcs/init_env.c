@@ -6,7 +6,7 @@
 /*   By: fgallois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 12:55:13 by fgallois          #+#    #+#             */
-/*   Updated: 2017/04/14 17:15:31 by fgallois         ###   ########.fr       */
+/*   Updated: 2017/04/26 14:34:23 by fgallois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,7 @@ t_env		*new_env(void)
 t_env		*init_env(int fd, char *av1)
 {
 	t_env	*env;
-	int		h;
-	int		w;
 
-	h = HEIGHT_DRAW;
-	w = WIDTH_DRAW;
 	if (!(env = new_env()))
 		return (NULL);
 	if (!(env->map = get_map(fd, env)))
@@ -80,6 +76,5 @@ t_env		*init_env(int fd, char *av1)
 	env->sup_img = init_img(env, SUPP_X, SUPP_Y);
 	env->church_img = init_img(env, CHURCH, CHURCH);
 	env->filename = get_file_name(av1);
-	fill_img(env, &h, &w);
 	return (env);
 }

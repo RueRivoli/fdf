@@ -6,7 +6,7 @@
 /*   By: fgallois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/10 14:52:14 by fgallois          #+#    #+#             */
-/*   Updated: 2017/04/10 16:51:59 by fgallois         ###   ########.fr       */
+/*   Updated: 2017/04/26 12:51:59 by fgallois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void				draw_segment(t_env *env, t_node *node1, t_node *node2);
 */
 void				error_no_conform(void);
 void				error_no_file(void);
-
+void				error_image(void);
 /*
 ** event_funct.c
 */
@@ -91,7 +91,7 @@ t_env				*init_env(int fd, char *av1);
 
 void				mlx_put_pixel_to_image(t_env *env, t_node *node);
 t_img				*init_img(t_env *env, int height, int width);
-void				fill_img(t_env *env, int *h, int *w);
+int					fill_img(t_env *env);
 
 /*
 ** init_node.c
@@ -133,9 +133,8 @@ void				print_coord(int x, int y, t_env *env);
 void				refresh(t_env *env);
 void				to_other(t_env *env, int i);
 void				reinitialise(t_env *env);
-void				fill_length(t_env *env, \
-int length, int count);
-int 		convertion(char **split, t_node **map, int *bo, char *line);
+void				fill_length(t_env *env, int length, int count);
+int					convertion(char **split, t_node **map, int *bo, char *line);
 
 /*
 ** useful.c

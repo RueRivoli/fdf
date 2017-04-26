@@ -6,7 +6,7 @@
 /*   By: fgallois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 11:04:35 by fgallois          #+#    #+#             */
-/*   Updated: 2017/04/14 17:17:50 by fgallois         ###   ########.fr       */
+/*   Updated: 2017/04/26 14:34:11 by fgallois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ t_env		*handle_error(int argc, char **argv)
 	if (!(ft_strstr(argv[1], ".fdf")) || !(env = init_env(fd, argv[1])))
 	{
 		error_no_conform();
+		return (NULL);
+	}
+	if (fill_img(env) == 0)
+	{
+		error_image();
 		return (NULL);
 	}
 	return (env);
