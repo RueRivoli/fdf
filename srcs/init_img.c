@@ -6,7 +6,7 @@
 /*   By: fgallois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/06 17:11:09 by fgallois          #+#    #+#             */
-/*   Updated: 2017/04/06 17:13:34 by fgallois         ###   ########.fr       */
+/*   Updated: 2017/04/26 14:40:57 by fgallois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,23 @@ t_img		*init_img(t_env *env, int height, int width)
 	return (image);
 }
 
-void		fill_img(t_env *env, int *h, int *w)
+int			fill_img(t_env *env)
 {
-	env->back_img->img = mlx_xpm_file_to_image(env->mlx, \
-			"images/magnifique_black.xpm", w, h);
-	env->church_img->img = mlx_xpm_file_to_image(env->mlx, \
-			"images/church.xpm", w, h);
-	env->sup_img->img = mlx_xpm_file_to_image(env->mlx, \
-			"images/blancdim.XPM", w, h);
+	int		h;
+	int		w;
+
+	h = HEIGHT_DRAW;
+	w = WIDTH_DRAW;
+	ft_putstr("automne");
+	if (!(env->back_img->img = mlx_xpm_file_to_image(env->mlx, \
+			"../../../../Users/fgallois/images/magnifique_black.xpm", &w, &h)))
+		return (0);
+	ft_putstr("hiver");
+	if (!(env->church_img->img = mlx_xpm_file_to_image(env->mlx, \
+			"../../../../Users/fgallois/images/church.xpm", &w, &h)))
+		return (0);
+	if (!(env->sup_img->img = mlx_xpm_file_to_image(env->mlx, \
+			"../../../../Users/fgallois/images/blancdim.XPM", &w, &h)))
+		return (0);
+	return (1);
 }
