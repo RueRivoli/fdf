@@ -6,7 +6,7 @@
 /*   By: fgallois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/06 17:11:09 by fgallois          #+#    #+#             */
-/*   Updated: 2017/04/26 14:40:57 by fgallois         ###   ########.fr       */
+/*   Updated: 2018/01/09 13:19:14 by fgallois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,9 @@ int			fill_img(t_env *env)
 
 	h = HEIGHT_DRAW;
 	w = WIDTH_DRAW;
-	ft_putstr("automne");
 	if (!(env->back_img->img = mlx_xpm_file_to_image(env->mlx, \
 			"../../../../Users/fgallois/images/magnifique_black.xpm", &w, &h)))
 		return (0);
-	ft_putstr("hiver");
 	if (!(env->church_img->img = mlx_xpm_file_to_image(env->mlx, \
 			"../../../../Users/fgallois/images/church.xpm", &w, &h)))
 		return (0);
