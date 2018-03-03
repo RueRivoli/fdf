@@ -1,5 +1,14 @@
 # ref
-Graphical Project - Projet Graphique
+(EN)
+Graphical Project
+
+This projects creates a 3d representations from a matrix containing x, y and z coordinates.
+
+
+---------------------------------------------------------------
+(FR)
+
+Projet Graphique
 
 Ce projet a pour objectif d'effectuer une representation 3D a partir des donnees x, y et z (altitude) fournies a partir d'une matrice.
 
@@ -15,3 +24,6 @@ Exemple de map fournie :
 0  3  0  0  1  2  2  2  5  0 -
 0  1  0  0  0  0  0  0  3  0 -
 0  0  0  0  0  0  0  0  0  0
+
+Results :
+
