@@ -27,6 +27,7 @@ Exemple de map fournie :
 
 Exemple
 
+![alt text](https://raw.githubusercontent.com/RueRivoli/fdf/master/capture/france.mov)
 
 
 
