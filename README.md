@@ -1,14 +1,12 @@
 #Graphical Project
+
 (EN)
-Graphical Project
 
 This projects creates a 3d representations from a matrix containing x, y and z coordinates.
 
 
 ---------------------------------------------------------------
 (FR)
-
-Projet Graphique
 
 Ce projet a pour objectif d'effectuer une representation 3D a partir des donnees x, y et z (altitude) fournies a partir d'une matrice.
 
@@ -24,6 +22,15 @@ Exemple de map fournie :
 0  3  0  0  1  2  2  2  5  0 -
 0  1  0  0  0  0  0  0  3  0 -
 0  0  0  0  0  0  0  0  0  0
+
+----------------------------------------------------------------------------
+#Installation
+
+git clone adress 
+cd fdf
+make
+./fdf test_maps/42.fdf for example
+
 
 Exemple
 [![Watch the video](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](http://youtu.be/vt5fpE0bzSY)
