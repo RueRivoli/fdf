@@ -33,7 +33,7 @@ make
 
 
 Exemple
-[![Alt text for your video](https://img.youtube.com/vi/T-D1KVIuvjA/0.jpg)](https://www.youtube.com/watch?v=H8QbKCzpmxM)
+[![Alt text for your video](https://www.youtube.com/watch?v=H8QbKCzpmxM)](https://www.youtube.com/watch?v=H8QbKCzpmxM)
 
 
 
