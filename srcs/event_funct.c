@@ -48,8 +48,9 @@ void		key_funct_2(int keycode, t_env *env)
 
 int			key_funct(int keycode, t_env *env)
 {
-	ft_putstr("keycode :\n");
+	ft_putstr("keycode : ");
 	ft_putnbr(keycode);
+	ft_putchar('\n');
 	if (keycode == TOUCH_ESC)
 		exit(1);
 	else if (keycode == ARROW_LEFT)
