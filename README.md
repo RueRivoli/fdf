@@ -26,8 +26,8 @@ Exemple de map fournie :
 0  0  0  0  0  0  0  0  0  0
 
 Exemple
+[![Watch the video](https://raw.github.com/RueRivoli/fdf/master/capture/france.mov)]
 
-![alt text](https://raw.githubusercontent.com/RueRivoli/fdf/master/capture/france.mov)
 
 
 
