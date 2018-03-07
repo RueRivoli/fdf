@@ -30,7 +30,7 @@ Exemple de map fournie :
 * cd fdf
 * make
  
-# Start
+# Usage
 ./fdf test_maps/42.fdf for example
 
 
