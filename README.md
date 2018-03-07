@@ -26,9 +26,9 @@ Exemple de map fournie :
 ----------------------------------------------------------------------------
 # Installation
 
-*git clone adress
-*cd fdf
-*make
+* git clone adress
+* cd fdf
+* make
  
 # Start
 ./fdf test_maps/42.fdf for example
