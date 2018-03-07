@@ -34,5 +34,7 @@ make
 
 Exemple
 
-[![Watch the video](https://raw.github.com/RueRivoli/master/captures/capture.png)](https://www.youtube.com/watch?v=H8QbKCzpmxM)
+
+[![Alt text for your video](https://img.youtube.com/vi/H8QbKCzpmxM/0.jpg)](https://www.youtube.com/watch?v=H8QbKCzpmxM)
+
 
