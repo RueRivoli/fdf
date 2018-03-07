@@ -26,7 +26,7 @@ Exemple de map fournie :
 ----------------------------------------------------------------------------
 # Installation
 
-*git clone adress 
+*git clone adress
 *cd fdf
 *make
  
