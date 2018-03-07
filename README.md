@@ -33,8 +33,6 @@ make
 
 
 Exemple
-[![Alt text for your video](https://www.youtube.com/watch?v=H8QbKCzpmxM)](https://www.youtube.com/watch?v=H8QbKCzpmxM)
-
 
 [![Watch the video](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](https://www.youtube.com/watch?v=H8QbKCzpmxM)
 
